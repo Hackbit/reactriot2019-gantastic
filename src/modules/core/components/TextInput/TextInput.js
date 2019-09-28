@@ -12,7 +12,11 @@ const TextInput = (props) => {
 
   return (
     <input
+      onBlur={onBlur}
+      onChange={onChange}
+      placeholder={placeholder}
       type="text"
+      value={value}
     />
   );
 };

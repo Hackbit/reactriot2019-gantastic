@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // css normalize first
 import 'assets/styles/normalize.css';
@@ -21,11 +22,13 @@ const store = createStore();
 const Main = () => {
   return (
     <Provider store={store}>
-      <div className="main">
-        <Layout>
-          <Routes />
-        </Layout>
-      </div>
+      <Router>
+        <div className="main">
+          <Layout>
+            <Routes />
+          </Layout>
+        </div>
+      </Router>
     </Provider>
   );
 };

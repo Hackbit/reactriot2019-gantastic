@@ -1,5 +1,4 @@
 import React from 'react';
-import { Router as AppRouter } from '@reach/router';
 
 import * as constants from 'modules/router/constants';
 
@@ -10,7 +9,7 @@ import { AnonRoute, AuthRoute } from './components';
 
 
 const Routes = () => (
-  <AppRouter>
+  <React.Fragment>
     <AuthRoute
       Component={AddFaces}
       path={constants.Routes.FACES}
@@ -20,7 +19,7 @@ const Routes = () => (
       Component={UserAuth}
       path={constants.Routes.AUTH}
     />
-  </AppRouter>
+  </React.Fragment>
 );
 
 

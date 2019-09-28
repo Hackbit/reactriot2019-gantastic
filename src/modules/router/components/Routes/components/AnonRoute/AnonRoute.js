@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from '@reach/router';
+import { Redirect, Route } from 'react-router-dom';
 
 import { constants } from 'modules/router';
 
@@ -10,6 +10,8 @@ const AnonRoute = (props) => {
     Component,
     isAuthenticated,
     isFetching,
+    path,
+    ...rest
   } = props;
 
   if (isFetching) {
@@ -18,13 +20,20 @@ const AnonRoute = (props) => {
     return <Redirect to={constants.Routes.FACES} />;
   }
 
-  return <Component />;
+  return (
+    <Route
+      {...rest}
+      component={Component}
+      path={path}
+    />
+  );
 };
 
 AnonRoute.propTypes = {
-  Component: PropTypes.oneOfType([PropTypes.node, PropTypes.object]).isRequired,
+  Component: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   isAuthenticated: PropTypes.bool,
   isFetching: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 AnonRoute.defaultProps = {

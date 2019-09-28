@@ -22,13 +22,18 @@ const withAuth = (Component) => {
         }
       }
 
-      Auth.shared.onAuthStateChanged(handleAuthChange);
+      const unregister = Auth.shared.onAuthStateChanged(handleAuthChange);
+
+      return function cleanup() {
+        unregister();
+      }
     });
 
     return <Component isFetching={isFetching} {...rest} />;
   };
 
   ComponentWithAuth.propTypes = {
+    isAuthenticated: PropTypes.bool,
     isFetching: PropTypes.bool,
     onLoginFailure: PropTypes.func.isRequired,
     onLoginSuccess: PropTypes.func.isRequired,

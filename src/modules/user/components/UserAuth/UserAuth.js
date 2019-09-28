@@ -17,14 +17,14 @@ const uiConfig = {
 };
 
 const UserAuth = () => (
-  <div>
+  <React.Fragment>
     <span>Please sign in</span>
 
     <StyledFirebaseAuth
       uiConfig={uiConfig}
       firebaseAuth={Auth.shared}
     />
-  </div>
+  </React.Fragment>
 );
 
 

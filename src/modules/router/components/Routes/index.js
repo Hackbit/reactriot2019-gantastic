@@ -1,4 +1,4 @@
-import Routes from './RoutesContainer';
+import Routes from './Routes';
 
 
 export default Routes;
