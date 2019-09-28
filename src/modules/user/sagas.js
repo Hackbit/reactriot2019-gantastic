@@ -1,10 +1,9 @@
-import { eventChannel, END } from 'redux-saga'
-import { all, call, fork, put, take } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga'
+import { call, put, take } from 'redux-saga/effects';
 
 import { Auth } from 'services';
 
 import * as actions from './actions';
-import * as types from './types';
 
 
 function authChannel() {
@@ -26,14 +25,6 @@ function authChannel() {
   )
 }
 
-function* handleUserLogin() {
-  try {
-    yield null;
-  } catch (error) {
-    yield null;
-  }
-}
-
 function* watchEvents() {
   const chan = yield call(authChannel);
 
@@ -52,27 +43,6 @@ function* watchEvents() {
   }
 }
 
-// function* watch() {
-//   while (true) {
-//     const { type, payload = {} } = yield take([
-//       types.USER_LOGIN_REQUEST,
-//     ]);
-//
-//     switch (type) {
-//       case types.USER_LOGIN_REQUEST:
-//         yield fork(handleUserLogin, payload);
-//         break;
-//
-//       default:
-//         yield null;
-//         break;
-//     }
-//   }
-// }
-
 export default function* rootSaga() {
-  yield all([
-    // watch(),
-    watchEvents(),
-  ]);
+  yield watchEvents();
 }
