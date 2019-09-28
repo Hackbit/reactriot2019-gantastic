@@ -1,8 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import createStore from 'store';
-
 import logo from 'assets/img/logo.svg';
 
 // css normalize first
@@ -11,6 +9,10 @@ import 'assets/styles/normalize.css';
 // app styles
 import 'assets/styles/base.css';
 import 'assets/styles/main.css';
+
+import createStore from 'store';
+
+import { Routes } from 'modules/router/components';
 
 
 const store = createStore();
@@ -24,14 +26,8 @@ const Main = () => {
           <p>
             Face Tricks
           </p>
-          <a
-            className="main--link"
-            href="https://github.com/Hackbit/reactriot2019-gantastic"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
+
+          <Routes />
         </header>
       </div>
     </Provider>

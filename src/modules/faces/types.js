@@ -1,0 +1,3 @@
+export const FACES_MERGE_REQUEST = '@faces/FACES_MERGE_REQUEST';
+export const FACES_MERGE_SUCCESS = '@user/FACES_MERGE_SUCCESS';
+export const FACES_MERGE_FAILURE = '@user/FACES_MERGE_FAILURE';
