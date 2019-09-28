@@ -9,19 +9,13 @@ export const initialState = {
   id: null,
   isAnonymous: undefined,
   isAuthenticated: undefined,
-  isFetching: false,
+  isFetching: true,
   photoUrl: null,
   providerData: [],
 };
 
 export const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.USER_LOGIN_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
-
     case types.USER_LOGIN_SUCCESS:
       return {
         ...state,

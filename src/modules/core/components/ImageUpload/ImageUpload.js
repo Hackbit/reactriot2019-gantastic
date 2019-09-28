@@ -1,21 +1,12 @@
 import React from 'react';
-import { Icon, Uploader } from 'rsuite';
 
 
 const ImageUpload = (props) => (
-  <Uploader
-    {...props}
-    autoUpload={false}
+  <input
+    type="file"
     multiple
-    listType="picture"
-  >
-    <button type="button">
-      <Icon
-        icon="camera-retro"
-        size="lg"
-      />
-    </button>
-  </Uploader>
+    onChange={props.onChange}
+  />
 );
 
 ImageUpload.defaultProps = {

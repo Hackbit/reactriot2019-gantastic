@@ -15,3 +15,8 @@ export const getIsAuth = createSelector(
   [getState],
   state => state.isAuthenticated,
 );
+
+export const getIsFetching = createSelector(
+  [getState],
+  state => state.isFetching,
+);

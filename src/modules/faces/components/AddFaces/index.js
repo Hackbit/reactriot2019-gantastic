@@ -1,4 +1,4 @@
-import AddFaces from './AddFaces';
+import AddFaces from './AddFacesContainer';
 
 
 export default AddFaces;

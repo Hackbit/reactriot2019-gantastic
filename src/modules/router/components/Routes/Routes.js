@@ -6,12 +6,20 @@ import * as constants from 'modules/router/constants';
 import { AddFaces } from 'modules/faces/components';
 import { UserAuth } from 'modules/user/components';
 
+import { AnonRoute, AuthRoute } from './components';
+
 
 const Routes = () => (
   <AppRouter>
-    <AddFaces path={constants.Routes.FACES} />
+    <AuthRoute
+      Component={AddFaces}
+      path={constants.Routes.FACES}
+    />
 
-    <UserAuth path={constants.Routes.AUTH} />
+    <AnonRoute
+      Component={UserAuth}
+      path={constants.Routes.AUTH}
+    />
   </AppRouter>
 );
 

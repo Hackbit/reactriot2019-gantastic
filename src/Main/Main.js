@@ -1,4 +1,5 @@
 import React from 'react';
+import { Application } from 'react-rainbow-components';
 import { Provider } from 'react-redux';
 
 // css normalize first
@@ -13,6 +14,7 @@ import 'assets/styles/main.css';
 
 import createStore from 'store';
 
+import { Layout } from 'modules/core/components';
 import { Routes } from 'modules/router/components';
 
 
@@ -22,9 +24,11 @@ const Main = () => {
   return (
     <Provider store={store}>
       <div className="main">
-        <header className="main--header">
-          <Routes />
-        </header>
+        <Application>
+          <Layout>
+            <Routes />
+          </Layout>
+        </Application>
       </div>
     </Provider>
   );
