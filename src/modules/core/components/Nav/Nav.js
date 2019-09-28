@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,22 +9,14 @@ import {
 } from './styled';
 
 
-const Nav = ({ items }) => {
-  const { pathname } = window.location;
-
-  const [selectedItem, setSelectedItem] = useState(items[0].name);
-
-  function itemSelected(evt, item) {
-    setSelectedItem(item);
-  }
-
+const Nav = ({ items, selectedItem }) => {
   return (
     <StyledNav>
       <StyledNavList>
         {items.map(item => (
           <StyledNavItem key={item.name}>
             <StyledNavLink
-              isActive={pathname.includes(item.to)}
+              isactive={selectedItem === item.name ? 'true' : undefined}
               to={item.to}
             >
               {item.label}
@@ -42,6 +34,7 @@ Nav.propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })),
+  selectedItem: PropTypes.string.isRequired,
   style: PropTypes.shape(),
 };
 

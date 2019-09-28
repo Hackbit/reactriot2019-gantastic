@@ -1,4 +1,4 @@
-import UserAuth from './UserAuth';
+import UserAuth from './UserAuthContainer';
 
 
 export default UserAuth;

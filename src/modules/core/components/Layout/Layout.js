@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { StyledLayout } from './styled';
+
 
 const Layout = ({ children }) => (
-  <div className="layout">
+  <StyledLayout>
     {children}
-  </div>
+  </StyledLayout>
 );
 
 Layout.propTypes = {

@@ -8,16 +8,15 @@ import { constants } from 'modules/router';
 const AuthRoute = (props) => {
   const {
     Component,
+    history,
     isAuthenticated,
     isFetching,
     path,
     ...rest
   } = props;
 
-  if (isFetching) {
-    return <div />;
-  } else if (!isAuthenticated) {
-    return <Redirect to={constants.Routes.FACES} />;
+  if (!isAuthenticated && !isFetching) {
+    return <Redirect to={constants.Routes.FACES} />
   }
 
   return (
@@ -30,10 +29,11 @@ const AuthRoute = (props) => {
 };
 
 AuthRoute.propTypes = {
-  Component: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
+  Component: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  history: PropTypes.shape().isRequired,
   isAuthenticated: PropTypes.bool,
   isFetching: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   render: PropTypes.func,
 };
 

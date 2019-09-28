@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import { Auth } from 'services';
+
+import { constants } from 'modules/router';
+
+import { Nav, PageLayout } from 'modules/core/components';
 
 
 const uiConfig = {
@@ -16,16 +21,37 @@ const uiConfig = {
   },
 };
 
-const UserAuth = () => (
-  <React.Fragment>
-    <span>Please sign in</span>
+const UserAuth = (props) => {
+  const { isFetching } = props;
 
-    <StyledFirebaseAuth
-      uiConfig={uiConfig}
-      firebaseAuth={Auth.shared}
-    />
-  </React.Fragment>
-);
+  if (isFetching) {
+    return null;
+  }
+
+  return (
+    <React.Fragment>
+      <PageLayout>
+        <div>
+          <span>Please sign in</span>
+
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={Auth.shared}
+          />
+        </div>
+      </PageLayout>
+
+      <Nav
+        items={constants.anonRoutes}
+        selectedItem={constants.anonRoutes[0].name}
+      />
+    </React.Fragment>
+  );
+};
+
+UserAuth.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+};
 
 
 export default UserAuth;

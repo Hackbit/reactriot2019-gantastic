@@ -21,6 +21,8 @@ const config = {
 
 firebase.initializeApp(config);
 
+window.firebase = firebase;
+
 Auth.init(firebase);
 Database.init(firebase);
 Storage.init(firebase);

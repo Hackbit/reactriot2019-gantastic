@@ -11,9 +11,9 @@ function authChannel() {
   return eventChannel(emitter => {
     const handleAuthChange = (user) => {
       if (user) {
-        emitter(user);
+        emitter({ user });
       } else {
-        emitter(END);
+        emitter({});
       }
     };
 
@@ -39,34 +39,40 @@ function* watchEvents() {
 
   try {
     while (true) {
-      const user = yield take(chan);
-      yield put(actions.userLoginSuccess(user));
+      const payload = yield take(chan);
+
+      if (payload.user) {
+        yield put(actions.userLoginSuccess(payload.user));
+      } else {
+        yield put(actions.userLoginFailure());
+      }
     }
-  } finally {
-    console.log('countdown terminated')
+  } catch (err) {
+    yield put(actions.userLoginFailure(err.message, err));
   }
 }
 
-function* watch() {
-  while (true) {
-    const { type, payload = {} } = yield take([
-      types.USER_LOGIN_REQUEST,
-    ]);
-
-    switch (type) {
-      case types.USER_LOGIN_REQUEST:
-        yield fork(handleUserLogin, payload);
-        break;
-
-      default:
-        yield null;
-    }
-  }
-}
+// function* watch() {
+//   while (true) {
+//     const { type, payload = {} } = yield take([
+//       types.USER_LOGIN_REQUEST,
+//     ]);
+//
+//     switch (type) {
+//       case types.USER_LOGIN_REQUEST:
+//         yield fork(handleUserLogin, payload);
+//         break;
+//
+//       default:
+//         yield null;
+//         break;
+//     }
+//   }
+// }
 
 export default function* rootSaga() {
   yield all([
-    watch(),
+    // watch(),
     watchEvents(),
   ]);
 }

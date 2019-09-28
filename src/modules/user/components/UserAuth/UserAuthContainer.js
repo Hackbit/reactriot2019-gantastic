@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
 
 import { selectors } from 'modules/user';
 
-import AnonRoute from './AnonRoute';
+import UserAuth from './UserAuth';
 
 
 const mapStateToProps = createStructuredSelector({
@@ -14,7 +12,4 @@ const mapStateToProps = createStructuredSelector({
 });
 
 
-const enhance = compose(connect(mapStateToProps), withRouter);
-
-
-export default enhance(AnonRoute);
+export default connect(mapStateToProps)(UserAuth);

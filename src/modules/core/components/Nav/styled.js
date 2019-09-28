@@ -52,7 +52,7 @@ const StyledNavLink = styled(Link)`
   width: 100%;
 
   &:before {
-    ${props => props.isActive ? activeLinkStyles : ''}
+    ${props => props.isactive ? activeLinkStyles : ''}
   }
 `;
 
