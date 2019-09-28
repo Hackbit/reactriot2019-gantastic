@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import { colors } from 'modules/core/constants';
+
 
 const StyledPageLayout = styled.div`
-  background-color: #282c34;
+  background-color: ${colors.darkBg};
   color: white;
   display: flex;
   flex-direction: column;
