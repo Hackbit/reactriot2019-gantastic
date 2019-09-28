@@ -23,10 +23,6 @@ const Main = () => {
     <Provider store={store}>
       <div className="main">
         <header className="main--header">
-          <p>
-            Face Tricks
-          </p>
-
           <Routes />
         </header>
       </div>
