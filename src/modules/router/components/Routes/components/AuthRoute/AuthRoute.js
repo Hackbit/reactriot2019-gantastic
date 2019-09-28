@@ -15,8 +15,12 @@ const AuthRoute = (props) => {
     ...rest
   } = props;
 
-  if (!isAuthenticated && !isFetching) {
-    return <Redirect to={constants.Routes.FACES} />
+  if (isFetching) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
+    return <Redirect to={constants.Routes.AUTH} />
   }
 
   return (

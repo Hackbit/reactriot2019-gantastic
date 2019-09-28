@@ -15,7 +15,11 @@ const AnonRoute = (props) => {
     ...rest
   } = props;
 
-  if (isAuthenticated && !isFetching) {
+  if (isFetching) {
+    return null;
+  }
+
+  if (isAuthenticated) {
     return <Redirect to={constants.Routes.FACES} />;
   }
 
