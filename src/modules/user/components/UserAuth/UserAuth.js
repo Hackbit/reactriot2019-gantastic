@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { Button } from 'modules/core/components';
+
 
 const UserAuth = () => (
-  <div>Login!</div>
+  <Button>Login!</Button>
 );
 
 

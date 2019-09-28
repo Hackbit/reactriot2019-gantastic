@@ -1,10 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import logo from 'assets/img/logo.svg';
-
 // css normalize first
 import 'assets/styles/normalize.css';
+
+// vendor stylesheets
+import 'rsuite/dist/styles/rsuite-default.css';
 
 // app styles
 import 'assets/styles/base.css';
@@ -22,7 +23,6 @@ const Main = () => {
     <Provider store={store}>
       <div className="main">
         <header className="main--header">
-          <img src={logo} className="main--logo" alt="logo" />
           <p>
             Face Tricks
           </p>
