@@ -1,16 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
-const ImageUpload = (props) => (
+const ImageUpload = ({ name, onChange }) => (
   <input
+    accept="image/*"
     type="file"
     multiple
-    onChange={props.onChange}
+    name={name}
+    onChange={onChange}
   />
 );
 
+ImageUpload.propTypes = {
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
 ImageUpload.defaultProps = {
-  action: '//jsonplaceholder.typicode.com/posts/',
+  name: undefined,
+  onChange: undefined,
 };
 
 
