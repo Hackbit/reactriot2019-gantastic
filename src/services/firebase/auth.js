@@ -14,6 +14,10 @@ class Auth {
   static get singleton() {
     return singleton;
   }
+
+  static get user() {
+    return shared.currentUser;
+  }
 }
 
 

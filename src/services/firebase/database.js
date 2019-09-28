@@ -1,3 +1,6 @@
+import Auth from './auth';
+
+
 let shared = null;
 
 class Database {
@@ -8,6 +11,30 @@ class Database {
   static get shared() {
     return shared;
   }
+
+  static saveConfigs = async (configs) => {
+    const { uid } = Auth.user;
+
+    Database
+      .shared
+      .ref('users')
+      .child(uid)
+      .child('configs')
+      .push(configs);
+  };
+
+  static getConfigsHistory = async () => {
+    const { uid } = Auth.user;
+
+    const snapshot = await Database
+      .shared
+      .ref('users')
+      .child(uid)
+      .child('configs')
+      .once('value');
+
+    return snapshot.val();
+  };
 }
 
 
