@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { StyledButton } from './styled';
+
 
 const Button = (props) => {
   const {
@@ -13,7 +15,7 @@ const Button = (props) => {
   } = props;
 
   return (
-    <button
+    <StyledButton
       className={className}
       onClick={onClick}
       style={style}
@@ -21,7 +23,7 @@ const Button = (props) => {
     >
       {icon}
       <span>{children}</span>
-    </button>
+    </StyledButton>
   );
 };
 

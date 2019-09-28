@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  StyledNav,
+  StyledNavItem,
+  StyledNavLink,
+  StyledNavList,
+} from './styled';
+
 
 const Nav = ({ items }) => {
+  const { pathname } = window.location;
+
   const [selectedItem, setSelectedItem] = useState(items[0].name);
 
   function itemSelected(evt, item) {
@@ -10,23 +19,20 @@ const Nav = ({ items }) => {
   }
 
   return (
-    <div
-      style={{
-        width: '88px',
-        minHeight: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-      }}
-    >
-      <div>
+    <StyledNav>
+      <StyledNavList>
         {items.map(item => (
-          <div key={item.name}>
-            {item.label}
-          </div>
+          <StyledNavItem key={item.name}>
+            <StyledNavLink
+              isActive={pathname.includes(item.to)}
+              to={item.to}
+            >
+              {item.label}
+            </StyledNavLink>
+          </StyledNavItem>
         ))}
-      </div>
-    </div>
+      </StyledNavList>
+    </StyledNav>
   );
 };
 

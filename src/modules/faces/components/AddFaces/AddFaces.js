@@ -5,14 +5,8 @@ import { formHooks } from 'hooks';
 
 import { Storage } from 'services';
 
-import { Button, ImageUpload, Nav } from 'modules/core/components';
+import { Button, ImageUpload } from 'modules/core/components';
 
-
-const items = [
-  { name: 'Faces', label: 'Faces' },
-  { name: 'History', label: 'History' },
-  { name: 'Logout', label: 'Logout' },
-];
 
 const AddFaces = ({ onFacesMerge, onGetHistory }) => {
   const {
@@ -51,8 +45,6 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
           />
         ))}
       </form>
-
-      <Nav items={items} />
     </div>
   );
 };

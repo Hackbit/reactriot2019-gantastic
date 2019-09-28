@@ -15,7 +15,7 @@ const AuthRoute = (props) => {
   } = props;
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <div />;
   } else if (!isAuthenticated) {
     return <Redirect to={constants.Routes.FACES} />;
   }
@@ -30,10 +30,11 @@ const AuthRoute = (props) => {
 };
 
 AuthRoute.propTypes = {
-  Component: PropTypes.oneOfType([PropTypes.node, PropTypes.object]).isRequired,
+  Component: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   isAuthenticated: PropTypes.bool,
   isFetching: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
+  render: PropTypes.func,
 };
 
 AuthRoute.defaultProps = {
