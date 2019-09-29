@@ -4,7 +4,6 @@ import { colors } from 'modules/core/constants';
 
 
 const StyledPageLayout = styled.div`
-  background-color: ${colors.darkBg};
   color: white;
   display: flex;
   flex-direction: column;
@@ -13,6 +12,8 @@ const StyledPageLayout = styled.div`
   overflow: scroll;
   padding-bottom: 128px;
   padding-top: 78px;
+  max-width: 540px;
+  margin: 0 auto;
   ${props => props.css || ''}
 `;
 

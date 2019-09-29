@@ -15,7 +15,7 @@ const StyledNav = styled.div`
 const StyledNavList = styled.ul`
   display: flex;
   height: 100%;
-  justify-content: space-evenly;
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0 20px;
@@ -29,13 +29,14 @@ const StyledNavItem = styled.li`
   margin: 0;
   position: relative;
   width: calc(100% / 3);
+  max-width: 100px;
 `;
 
 const activeLinkStyles = css`
   background-color: ${colors.primary};
   border-radius: 100px;
   content: "";
-  height: 6px;
+  height: 4px;
   left: 0;
   position: absolute;
   bottom: 0;
@@ -49,6 +50,7 @@ const StyledNavLink = styled(Link)`
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: ${colors.shadow};
 
   &:before {
     ${props => props.active ? activeLinkStyles : ''}

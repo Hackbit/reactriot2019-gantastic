@@ -3,16 +3,20 @@ import { css } from 'styled-components';
 import * as colors from './colors';
 
 
+export const centeredStyles = css`
+  margin: 0 auto;
+`;
+
 export const ghostButtonStyles = css`
   background-color: ${colors.transparent};
-  border-color: ${colors.white};
-  color: ${colors.white};
+  border-color: ${colors.primary};
+  color: ${colors.primary};
   transition: border-color 0.15s linear, background-color 0.15s linear, color 0.15s linear;
   
   &:hover {
     background-color: ${colors.transparent};
-    border-color: ${colors.shadow};
-    color: ${colors.shadow};
+    border-color: ${colors.primaryHover};
+    color: ${colors.primaryHover};
   }
 `;
 
@@ -27,7 +31,7 @@ export const buttonStyles = css`
   color: ${colors.white};
   cursor: pointer;
   display: inline-flex;
-  font-size: 1rem;
+  font-size: 18px;
   justify-content: center;
   line-height: 2.375rem;
   padding: 0 1rem;
@@ -68,6 +72,31 @@ export const deleteButtonStyles = css`
   }
 `;
 
+export const disabledButtonStyles = css`
+  background-color: ${colors.disabled};
+  border-color: ${colors.disabled};
+  color: ${colors.smoke};
+  
+  &:hover {
+    background-color: ${colors.disabled};
+    border-color: ${colors.disabled};
+    box-shadow: none;
+    color: ${colors.smoke};
+  }
+`;
+
+export const successButtonStyles = css`
+  background-color: ${colors.success};
+  border-color: ${colors.success};
+  color: ${colors.white};
+
+  &:hover {
+    background-color: ${colors.successHover};
+    border-color: ${colors.successHover};
+    color: ${colors.white};
+  }
+`;
+
 export const iconLeftStyles = css`
   margin-right: 8px;
 `;
@@ -86,8 +115,8 @@ export const deletingContentStyles = css`
 `;
 
 export const previewLineThinColStyles = css`
-  flex-basis: 120px;
-  width: 120px;
+  flex-basis: 140px;
+  width: 140px;
 `;
 
 export const previewLineWideColStyles = css`
@@ -101,8 +130,8 @@ export const previewLineWideColStyles = css`
 `;
 
 export const resultPreviewLineWideColStyles = css`
-  ${previewLineWideColStyles}
-  padding: 0 0 0 0;
+  display: flex;
+  padding: 0 20px 0 0;
   flex-direction: column;
   justify-content: center;
 `;
@@ -127,7 +156,12 @@ export const cardTranslucentStyles = css`
 `;
 
 export const imageWrapperStyles = css`
-  border-radius: 10px;
+  border-radius: 22px;
   height: 120px;
   width: 120px;
+`;
+
+export const biggerImageWrapperStyles = css`
+  width: 140px;
+  height: 140px;
 `;

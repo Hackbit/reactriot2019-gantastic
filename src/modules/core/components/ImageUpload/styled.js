@@ -15,6 +15,7 @@ const StyledFileInput = styled.input`
 const StyledFileInputLabel = styled.label`
   ${styles.buttonStyles}
   ${styles.ghostButtonStyles}
+  margin-bottom: 20px;
 `;
 
 export {

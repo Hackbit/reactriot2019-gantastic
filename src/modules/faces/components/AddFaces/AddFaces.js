@@ -18,7 +18,7 @@ import {
   PreviewResultImage,
 } from 'modules/core/components';
 
-import { PageSection } from './styled';
+import { PageSection, SectionTitle } from './styled';
 
 
 const layoutCss = css`
@@ -43,67 +43,61 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
     onGetHistory();
   });
 
+  const imagePreviews = files.length > 0 && (
+    <>
+      <SectionTitle>Adjust Inputs</SectionTitle>
+      {files.map((f) => {
+        const filteredUrls = imageUrls.filter(url => url.includes(encodeURIComponent(f.name)));
+
+        if (!filteredUrls.length) {
+          return (
+            <PreviewImageWithSlider
+              alt='Preview placeholder'
+              key={f.name}
+              onChange={() => {}}
+              onDelete={() => {}}
+            />
+          );
+        }
+
+        const url = filteredUrls[0];
+
+        return (
+          <PreviewImageWithSlider
+            alt={url}
+            fileName={f.name}
+            key={url}
+            onChange={(imageUrl, value) => {
+              setImageSliderValue({
+                ...imageSliderValues,
+                [imageUrl]: value,
+              });
+            }}
+            onDelete={handleDelete}
+            src={url}
+          />
+        );
+      })}
+    </>
+  );
+
   return (
     <>
       <PageLayout css={layoutCss}>
         <form>
-          <PageSection>
-            <ImageUpload
-              accept="image/*"
-              icon={icons.UPLOAD}
-              label="Add Images"
-              name="fileList"
-              onChange={handleChange}
+          <PageSection css={resultLineCss}>
+            <PreviewResultImage
+              alt="Result image"
+              imageSliderValues={imageSliderValues}
+              imageUrls={imageUrls}
+              onButtonClick={onFacesMerge}
+              onFilesChange={handleChange}
+              src={undefined}
             />
           </PageSection>
 
-          {files.length > 0 && (
-            <PageSection css={resultLineCss}>
-              <PreviewResultImage
-                alt="Result image"
-                imageSliderValues={imageSliderValues}
-                imageUrls={imageUrls}
-                onButtonClick={onFacesMerge}
-                src={undefined}
-              />
-            </PageSection>
-          )}
-
           <PageSection>
-            {files.map((f) => {
-              const filteredUrls = imageUrls.filter(url => url.includes(
-                encodeURIComponent(f.name)
-              ));
-
-              if (!filteredUrls.length) {
-                return (
-                  <PreviewImageWithSlider
-                    alt='Preview placeholder'
-                    key={f.name}
-                    onChange={() => {}}
-                    onDelete={() => {}}
-                  />
-                );
-              }
-
-              const url = filteredUrls[0];
-
-              return (
-                <PreviewImageWithSlider
-                  alt={url}
-                  fileName={f.name}
-                  key={url}
-                  onChange={(imageUrl, value) => {
-                    setImageSliderValue({
-                      ...imageSliderValues,
-                      [imageUrl]: value,
-                    });
-                  }}
-                  onDelete={handleDelete}
-                  src={url}
-                />
-              );
-            })}
+            {imagePreviews}
           </PageSection>
         </form>
       </PageLayout>

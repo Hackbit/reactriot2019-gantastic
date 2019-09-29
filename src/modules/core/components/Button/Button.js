@@ -12,8 +12,10 @@ const Button = (props) => {
     className,
     iconLeft,
     iconRight,
+    isCentered,
     isDisabled,
     isGhost,
+    isSuccess,
     onClick,
     style,
     type,
@@ -21,15 +23,19 @@ const Button = (props) => {
 
   return (
     <StyledButton
+      centered={isCentered}
       className={className}
       disabled={isDisabled}
       ghost={isGhost}
       onClick={onClick}
       style={style}
+      success={isSuccess}
       type={type}
     >
       {!!iconLeft && <Icon icon={iconLeft} />}
+
       <span>{children}</span>
+
       {!!iconRight && <Icon icon={iconRight} left={false} />}
     </StyledButton>
   );
@@ -40,8 +46,10 @@ Button.propTypes = {
   className: PropTypes.string,
   iconLeft: PropTypes.shape(),
   iconRight: PropTypes.shape(),
+  isCentered: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isGhost: PropTypes.bool,
+  isSuccess: PropTypes.bool,
   onClick: PropTypes.func,
   style: PropTypes.shape(),
   type: PropTypes.string,
@@ -52,8 +60,10 @@ Button.defaultProps = {
   className: undefined,
   iconLeft: undefined,
   iconRight: undefined,
+  isCentered: false,
   isDisabled: false,
   isGhost: false,
+  isSuccess: false,
   onClick: undefined,
   style: undefined,
   type: 'button',

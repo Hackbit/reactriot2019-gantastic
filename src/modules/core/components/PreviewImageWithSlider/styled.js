@@ -18,16 +18,22 @@ const StyledSliderSection = styled.div`
 `;
 
 const StyledNumberInput = styled.input`
-  background-color: ${colors.transparent};
-  border-radius: 10px;
-  border: 1px solid ${colors.white};
+  background-color: ${colors.white};
+  border-radius: 12px;
+  border: 1px solid ${colors.inputBorder};
   box-shadow: none;
-  color: ${colors.white};
-  font-size: 16px;
+  color: ${colors.inputText};
+  font-size: 18px;
   max-width: 60px;
   outline: none;
   padding: 0 8px;
   width: 60px;
+  transition: all 0.1s linear 0s;
+  
+  &:focus {
+    border-color: ${colors.primary};
+    border-width: 2px;
+  }
 `;
 
 

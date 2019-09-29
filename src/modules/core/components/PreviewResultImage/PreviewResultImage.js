@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { icons } from 'modules/core/constants';
 
 import Button from '../Button';
-import Card from '../Card';
+import ImageUpload from '../ImageUpload';
 import PreviewImage from '../PreviewImage';
 
 import {
@@ -22,49 +22,59 @@ const PreviewResultImage = (props) => {
     imageSliderValues,
     imageUrls,
     onButtonClick,
+    onFilesChange,
     src,
     style,
   } = props;
 
+  const handleGenerateButtonClick = () => {
+    const configs = { ...imageSliderValues };
+
+    imageUrls.forEach((u) => {
+      if (!configs[u]) configs[u] = 0.1;
+    });
+
+    onButtonClick(configs);
+  };
+
   return (
-    <Card isTranslucent>
+    <>
+      {/*<StyledResultPreviewText>*/}
+      {/*  Add images and generate to preview*/}
+      {/*</StyledResultPreviewText>*/}
       <StyledResultLineWrapper>
         <StyledOptionsSection>
-          <StyledResultPreviewText>
-            A preview of your
-            baby photo
-          </StyledResultPreviewText>
+          <ImageUpload
+            accept="image/*"
+            icon={icons.UPLOAD}
+            label="Add Images"
+            name="fileList"
+            onChange={onFilesChange}
+          />
           <Button
+            isCentered
             isDisabled={imageUrls.length === 0}
+            isSuccess
             iconLeft={icons.FACE}
-            onClick={() => {
-              const configs = { ...imageSliderValues };
-
-              imageUrls.forEach((u) => {
-                if (!configs[u]) {
-                  configs[u] = 0.1;
-                }
-              });
-
-              onButtonClick(configs);
-            }}
-            style={{ margin: '0 auto' }}
+            onClick={handleGenerateButtonClick}
           >
-            Generate
+            Generate Result
           </Button>
         </StyledOptionsSection>
 
         <StyledImageSection>
           <PreviewImage
             alt={alt}
+            fallbackIcon={icons.UNKNOWN}
             fallbackToLoader={false}
+            isBigger
             className={className}
             src={src}
             style={style}
           />
         </StyledImageSection>
       </StyledResultLineWrapper>
-    </Card>
+    </>
   );
 };
 
@@ -74,6 +84,7 @@ PreviewResultImage.propTypes = {
   imageSliderValues: PropTypes.shape(),
   imageUrls: PropTypes.arrayOf(PropTypes.string),
   onButtonClick: PropTypes.func.isRequired,
+  onFilesChange: PropTypes.func.isRequired,
   src: PropTypes.string,
   style: PropTypes.shape(),
 };

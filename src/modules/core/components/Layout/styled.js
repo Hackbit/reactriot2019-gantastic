@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
+import { colors } from 'modules/core/constants';
+
 
 const StyledLayout = styled.div`
-  background-color: #282c34;
-  color: white;
+  background-color: ${colors.lightBg};
   height: 100vh;
   overflow: scroll;
   padding-bottom: 128px;

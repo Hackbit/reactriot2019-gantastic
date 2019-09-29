@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-import { styles } from 'modules/core/constants';
+import { colors, styles } from 'modules/core/constants';
 
 
 const StyledResultLineWrapper = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const StyledImageSection= styled.div`
@@ -16,10 +17,11 @@ const StyledOptionsSection = styled.div`
 `;
 
 const StyledResultPreviewText = styled.h1`
-  font-size: 1rem;
+  font-size: 18px;
+  color: ${colors.text};
   margin: 0 0 10px 0;
   padding: 0 10px;
-  opacity: 0.8;
+  opacity: 0.5;
 `;
 
 
