@@ -10,6 +10,8 @@ import { constants } from 'modules/router';
 
 import { Storage } from 'services'
 
+import { ResultModal } from 'modules/faces/components';
+
 import {
   Nav,
   PageLayout,
@@ -31,7 +33,7 @@ const resultLineCss = css`
 `;
 
 const AddFaces = (props) => {
-  const { isGenerating, isRetrieving, onFacesMerge, onGetHistory, onReset, resultImageUrl } = props;
+  const { isGenerating, isRetrieving, onFacesMerge, onOpenModal, onReset, resultImageUrl } = props;
 
   const {
     files,
@@ -102,6 +104,7 @@ const AddFaces = (props) => {
               isRetrieving={isRetrieving}
               onButtonClick={onFacesMerge}
               onFilesChange={handleChange}
+              onImageClick={onOpenModal}
               onReset={() => {
                 handleReset();
                 setImageSliderValue({});
@@ -121,6 +124,8 @@ const AddFaces = (props) => {
         items={constants.authRoutes}
         selectedItem="Faces"
       />
+
+      <ResultModal />
     </>
   );
 };
@@ -131,6 +136,7 @@ AddFaces.propTypes = {
   onFacesMerge: PropTypes.func.isRequired,
   onGetHistory: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
   resultImageUrl: PropTypes.string,
 };
 

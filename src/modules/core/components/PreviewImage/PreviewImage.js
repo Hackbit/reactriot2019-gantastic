@@ -23,6 +23,7 @@ const PreviewImage = (props) => {
     fileName,
     isBigger,
     loaderVariant,
+    onClick,
     onDelete,
     src,
     style,
@@ -34,7 +35,8 @@ const PreviewImage = (props) => {
     <>
       {!!onDelete && (
         <DeleteButton
-          onClick={() => {
+          onClick={(evt) => {
+            evt.stopPropagation();
             setDeleting(true);
             onDelete(src, fileName);
           }}
@@ -48,6 +50,7 @@ const PreviewImage = (props) => {
         <StyledPreviewImage
           alt={alt}
           className={className}
+          onClick={onClick}
           src={src}
           style={style}
         />
@@ -79,6 +82,7 @@ PreviewImage.propTypes = {
   fileName: PropTypes.string,
   isBigger: PropTypes.bool,
   loaderVariant: PropTypes.string,
+  onClick: PropTypes.func,
   onDelete: PropTypes.func,
   src: PropTypes.string,
   style: PropTypes.shape(),

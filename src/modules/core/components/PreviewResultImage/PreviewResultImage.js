@@ -33,6 +33,7 @@ const PreviewResultImage = (props) => {
     isRetrieving,
     onButtonClick,
     onFilesChange,
+    onImageClick,
     onReset,
     src,
     style,
@@ -80,6 +81,7 @@ const PreviewResultImage = (props) => {
             fallbackToLoader={isGenerating || isRetrieving}
             loaderVariant={isGenerating ? variants.spinner.BASE : variants.spinner.BRAND}
             isBigger
+            onClick={onImageClick}
             src={src}
             style={style}
           />
@@ -114,6 +116,7 @@ PreviewResultImage.propTypes = {
   isRetrieving: PropTypes.bool,
   onButtonClick: PropTypes.func.isRequired,
   onFilesChange: PropTypes.func.isRequired,
+  onImageClick: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
   src: PropTypes.string,
   style: PropTypes.shape(),

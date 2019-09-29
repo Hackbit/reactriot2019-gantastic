@@ -18,6 +18,7 @@ export const initialState = {
   currentResultCallback: null,
   currentResultPath: null,
   resultImageUrl: null,
+  modalIsOpen: false,
 };
 
 export const reducer = (state = initialState, action = {}) => {
@@ -126,6 +127,18 @@ export const reducer = (state = initialState, action = {}) => {
 
     case types.FACES_RESET:
       return initialState;
+
+    case types.MODAL_OPEN:
+      return {
+        ...state,
+        modalIsOpen: true,
+      };
+
+    case types.MODAL_CLOSE:
+      return {
+        ...state,
+        modalIsOpen: false,
+      };
 
     default:
       return state;

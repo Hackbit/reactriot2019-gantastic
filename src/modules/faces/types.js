@@ -17,3 +17,6 @@ export const FACES_GET_RESULT_SUCCESS = '@faces/FACES_GET_RESULT_SUCCESS';
 export const FACES_GET_RESULT_FAILURE = '@faces/FACES_GET_RESULT_FAILURE';
 
 export const FACES_RESET = '@faces/FACES_RESET';
+
+export const MODAL_OPEN = '@faces/MODAL_OPEN';
+export const MODAL_CLOSE = '@faces/MODAL_CLOSE';

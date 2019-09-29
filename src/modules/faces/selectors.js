@@ -65,3 +65,8 @@ export const getIsRetrieving = createSelector(
   [getState],
   state => state.isRetrieving,
 );
+
+export const getModalIsOpen = createSelector(
+  [getState],
+  state => state.modalIsOpen,
+);

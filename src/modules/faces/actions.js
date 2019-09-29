@@ -67,3 +67,11 @@ export const facesGetResultFailure = (message, error) => ({
 export const facesReset = () => ({
   type: types.FACES_RESET,
 });
+
+export const facesModalOpen = () => ({
+  type: types.MODAL_OPEN,
+});
+
+export const facesModalClose = () => ({
+  type: types.MODAL_CLOSE,
+});

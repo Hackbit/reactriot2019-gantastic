@@ -16,6 +16,7 @@ const mapDispatchToProps = {
   onFacesMerge: actions.facesMergeRequest,
   onGetHistory: actions.facesGetHistoryRequest,
   onReset: actions.facesReset,
+  onOpenModal: actions.facesModalOpen,
 };
 
 
