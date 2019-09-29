@@ -15,7 +15,6 @@ import { Nav, PageLayout, Title } from 'modules/core/components';
 const uiConfig = {
   signInSuccessUrl: '/faces',
   signInOptions: [
-    Auth.singleton.TwitterAuthProvider.PROVIDER_ID,
     Auth.singleton.GithubAuthProvider.PROVIDER_ID,
     Auth.singleton.GoogleAuthProvider.PROVIDER_ID,
   ],
