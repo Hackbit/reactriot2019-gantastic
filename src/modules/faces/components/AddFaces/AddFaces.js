@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
 
@@ -16,6 +16,7 @@ import {
   Nav,
   PageLayout,
   PreviewImageWithSlider,
+  PreviewResultImage,
 } from 'modules/core/components';
 
 import { PageSection } from './styled';
@@ -27,9 +28,12 @@ const layoutCss = css`
 
 const AddFaces = ({ onFacesMerge, onGetHistory }) => {
   const {
+    files,
     imageUrls,
     handleChange,
   } = formHooks.useFileInputUpload(Storage.uploadImages);
+
+  const [imageSliderValues, setImageSliderValue] = useState({});
 
   useEffect(() => {
     onGetHistory();
@@ -49,16 +53,47 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
             />
           </PageSection>
 
-          <PageSection>
-            {imageUrls.map(url => (
-              <PreviewImageWithSlider
-                alt={url}
-                key={url}
-                onChange={() => {}}
-                src={url}
-                value={50}
+          {files.length > 0 && (
+            <PageSection>
+              <PreviewResultImage
+                alt="Result image"
+                src={undefined}
               />
-            ))}
+            </PageSection>
+          )}
+
+          <PageSection>
+            {files.map((f) => {
+              const filteredUrls = imageUrls.filter(url => url.includes(
+                encodeURIComponent(f.name)
+              ));
+
+              if (!filteredUrls.length) {
+                return (
+                  <PreviewImageWithSlider
+                    alt='Preview placeholder'
+                    key={f.name}
+                    onChange={() => {}}
+                  />
+                );
+              }
+
+              const url = filteredUrls[0];
+
+              return (
+                <PreviewImageWithSlider
+                  alt={url}
+                  key={url}
+                  onChange={(imageUrl, value) => {
+                    setImageSliderValue({
+                      ...imageSliderValues,
+                      [imageUrl]: value,
+                    });
+                  }}
+                  src={url}
+                />
+              );
+            })}
           </PageSection>
 
           {imageUrls.length > 0 && (
@@ -66,7 +101,15 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
               <Button
                 isAllowed={imageUrls.length > 0}
                 onClick={() => {
-                  onFacesMerge(imageUrls);
+                  const configs = { ...imageSliderValues };
+
+                  imageUrls.forEach((u) => {
+                    if (!configs[u]) {
+                      configs[u] = 0.1;
+                    }
+                  });
+
+                  onFacesMerge(configs);
                 }}
               >
                 Do Face Tricks

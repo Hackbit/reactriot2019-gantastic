@@ -5,22 +5,29 @@ import * as api from './api';
 import * as types from './types';
 
 
-function* handleMergeFaces(urls) {
+function* handleMergeFaces(imageSliderConfigs) {
   try {
     const configs = {
-      callback: api.endpoint,
-      op: [
-        '+',
-        ...urls.map(url => (['*', '0.5', ['image', url]])),
-      ],
+      op: ['+'],
     };
+
+    const pairs = Object.entries(imageSliderConfigs);
+    pairs.forEach(([url, sliderValue]) => {
+      const opVal = [
+        '*',
+        sliderValue.toString(),
+        ['image', url],
+      ];
+
+      configs.op.push(opVal);
+    });
 
     const response = yield call(api.postFacesUrls, { configs });
 
-    const { id } = response.data;
+    const { payload } = response.data;
 
     yield all([
-      put(actions.facesMergeSuccess(id)),
+      put(actions.facesMergeSuccess(payload)),
       put(actions.facesSaveConfigsRequest(configs))
     ]);
   } catch (error) {

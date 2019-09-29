@@ -6,9 +6,9 @@ export const facesMergeRequest = configs => ({
   payload: { configs },
 });
 
-export const facesMergeSuccess = operationId => ({
+export const facesMergeSuccess = (payload = {}) => ({
   type: types.FACES_MERGE_SUCCESS,
-  payload: { operationId },
+  payload: { ...payload },
 });
 
 export const facesMergeFailure = (message, error) => ({

@@ -39,6 +39,7 @@ const PreviewImageWithSlider = (props) => {
 
       <StyledSliderSection>
         <Slider
+          disabled={!src}
           label=""
           max={max}
           min={min}
@@ -46,18 +47,19 @@ const PreviewImageWithSlider = (props) => {
           onChange={(evt) => {
             const { value } = evt.target;
             setSliderValue(value);
-            onChange(value);
+            onChange(src, value);
           }}
           value={sliderValue}
         />
 
         <StyledNumberInput
+          disabled={!src}
           max={max}
           min={min}
           onChange={(evt) => {
             const { value } = evt.target;
             setSliderValue(value);
-            onChange(value);
+            onChange(src, value);
           }}
           step={step}
           type="number"
@@ -77,7 +79,6 @@ PreviewImageWithSlider.propTypes = {
   src: PropTypes.string,
   step: PropTypes.number,
   style: PropTypes.shape(),
-  value: PropTypes.number.isRequired,
 };
 
 PreviewImageWithSlider.defaultProps = {

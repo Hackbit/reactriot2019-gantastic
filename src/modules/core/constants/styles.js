@@ -53,3 +53,23 @@ export const iconLeftStyles = css`
 export const iconRightStyles = css`
   margin-left: 8px;
 `;
+
+export const emptyContentStyles = css`
+  border: 1px dotted ${colors.shadow};
+  border-radius: 10px;
+`;
+
+export const previewLineThinColStyles = css`
+  flex-basis: 120px;
+  width: 120px;
+`;
+
+export const previewLineWideColStyles = css`
+  align-self: center;
+  display: flex;
+  flex-basis: calc(100% - 120px);
+  justify-content: space-between;
+  max-height: 44px;
+  padding: 0 0 0 20px;
+  width: calc(100% - 120px);
+`;

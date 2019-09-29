@@ -16,7 +16,7 @@ const Nav = ({ items, selectedItem }) => {
         {items.map(item => (
           <StyledNavItem key={item.name}>
             <StyledNavLink
-              isactive={selectedItem === item.name ? 'true' : undefined}
+              active={selectedItem === item.name ? 'true' : undefined}
               to={item.to}
             >
               {item.label}

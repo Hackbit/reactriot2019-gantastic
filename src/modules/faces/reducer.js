@@ -10,7 +10,9 @@ export const initialState = {
     isFetching: false,
   },
   isFetching: false,
-  operationId: null,
+  currentOperationId: null,
+  currentProgressCallback: null,
+  currentResultCallback: null,
 };
 
 export const reducer = (state = initialState, action = {}) => {
@@ -25,7 +27,9 @@ export const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isFetching: false,
-        operationId: action.payload.operationId,
+        currentOperationId: action.payload.id,
+        currentProgressCallback: action.payload.progressCallback,
+        currentResultCallback: action.payload.resultCallback,
       };
 
     case types.FACES_MERGE_FAILURE:

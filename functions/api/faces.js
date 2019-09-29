@@ -1,4 +1,8 @@
 const redis = require('../redis');
+const utils = require('./utils');
+
+
+const endpointUrl = 'https://us-central1-face-tricks.cloudfunctions.net/api/faces';
 
 /**
  * Stores the faces-merge config in redis.
@@ -19,8 +23,11 @@ const create = async (req, res) => {
 
     redis.incr('maxId');
 
+    const resultCallbackUrl = `${endpointUrl}/${maxId}`;
+    const progressCallbackUrl = `${resultCallbackUrl}/progress`;
+
     const updatedConfigs = {
-      callback: `${configs.callback}/${maxId}`,
+      callback: resultCallbackUrl,
       op: configs.op,
     };
 
@@ -28,10 +35,16 @@ const create = async (req, res) => {
 
     redis.set(`${maxId}_faces`, configsStr);
 
-    return res.send({ success: true, id: maxId });
+    const respData = utils.makeResponseResult(null, {
+      id: maxId,
+      resultCallback: resultCallbackUrl,
+      progressCallback: progressCallbackUrl,
+    });
+
+    return res.send(respData);
   } catch (err) {
     console.log(err);
-    return res.send({ success: false, error: true });
+    return res.send(utils.makeResponseResult(err));
   }
 };
 
@@ -49,10 +62,12 @@ const get = async (req, res) => {
 
     const configs = JSON.parse(configsStr);
 
-    return res.send({ success: true, configs });
+    const respData = utils.makeResponseResult(null, { configs });
+
+    return res.send(respData);
   } catch (err) {
     console.log(err);
-    return res.send({ success: false, error: true });
+    return res.send(utils.makeResponseResult(err));
   }
 };
 
@@ -69,10 +84,33 @@ const success = async (req, res) => {
   try {
     redis.set(`${id}_result`, url);
 
-    return res.send({ success: true });
+    return res.sendStatus(204);
   } catch (err) {
     console.log(err);
-    return res.send({ success: false, error: true });
+    return res.send(utils.makeResponseResult(err));
+  }
+};
+
+/**
+ * Returns a faces-merge result progress (true for done, otherwise false) from redis.
+ * @param {Object} req
+ * @param {Object} res
+ * @return {Promise<>}
+ */
+const getResultProgress = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await redis.getAsync(`${id}_result`);
+
+    const isDone = result !== null;
+
+    const respData = utils.makeResponseResult(null, { id, isDone });
+
+    return res.send(respData);
+  } catch (err) {
+    console.log(err);
+    return res.send(utils.makeResponseResult(err));
   }
 };
 
@@ -88,10 +126,12 @@ const getResult = async (req, res) => {
   try {
     let url = await redis.getAsync(`${id}_result`);
 
-    return res.send({ success: true, url });
+    const respData = utils.makeResponseResult(null, { id, url });
+
+    return res.send(respData);
   } catch (err) {
     console.log(err);
-    return res.send({ success: false, error: true });
+    return res.send(utils.makeResponseResult(err));
   }
 };
 
@@ -100,3 +140,4 @@ module.exports.post = create;
 module.exports.get = get;
 module.exports.success = success;
 module.exports.getResult = getResult;
+module.exports.getResultProgress = getResultProgress;

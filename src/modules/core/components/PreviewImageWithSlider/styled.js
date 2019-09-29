@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors } from 'modules/core/constants';
+import { colors, styles } from 'modules/core/constants';
 
 
 const StyledImageSliderWrapper = styled.div`
@@ -10,29 +10,24 @@ const StyledImageSliderWrapper = styled.div`
 `;
 
 const StyledImageSection= styled.div`
-  flex-basis: 120px;
-  width: 120px;
+  ${styles.previewLineThinColStyles}
 `;
 
 const StyledSliderSection = styled.div`
-  align-self: center;
-  display: flex;
-  flex-basis: calc(100% - 120px);
-  justify-content: space-between;
-  max-height: 44px;
-  padding: 0 0 0 20px;
-  width: calc(100% - 120px);
+  ${styles.previewLineWideColStyles}
 `;
 
 const StyledNumberInput = styled.input`
   background-color: ${colors.transparent};
-  border: 1px solid ${colors.white};
   border-radius: 10px;
+  border: 1px solid ${colors.white};
   box-shadow: none;
   color: ${colors.white};
-  max-width: 80px;
-  padding: 0 8px;
+  font-size: 16px;
+  max-width: 60px;
   outline: none;
+  padding: 0 8px;
+  width: 60px;
 `;
 
 
