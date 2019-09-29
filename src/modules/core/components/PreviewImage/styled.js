@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
-import { styles } from 'modules/core/constants';
+import { colors, styles } from 'modules/core/constants';
 
+
+const StyledPositionWrapper = styled.div`
+  position: relative;
+  box-shadow: 0 0 2px 0 ${colors.shadow};
+  ${styles.imageWrapperStyles}
+`;
 
 const StyledImageWrapper = styled.div`
-  border-radius: 10px;
-  box-shadow: 0 0 2px 0 #a4a7b5;
-  height: 120px;
-  width: 120px;
-  position: relative;
+  overflow: hidden;
 
   ${props => props.empty ? styles.emptyContentStyles : ''}
+  ${props => props.deleting ? styles.deletingContentStyles : ''}
+
+  ${styles.imageWrapperStyles}
 `;
 
 const StyledPreviewImage = styled.img`
@@ -26,4 +31,5 @@ const StyledPreviewImage = styled.img`
 export {
   StyledImageWrapper,
   StyledPreviewImage,
+  StyledPositionWrapper,
 };

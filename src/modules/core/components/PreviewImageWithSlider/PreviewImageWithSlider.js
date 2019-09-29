@@ -16,6 +16,7 @@ const PreviewImageWithSlider = (props) => {
   const {
     alt,
     className,
+    fileName,
     max,
     min,
     onChange,
@@ -32,6 +33,7 @@ const PreviewImageWithSlider = (props) => {
       <StyledImageSection>
         <PreviewImage
           alt={alt}
+          fileName={fileName}
           className={className}
           onDelete={onDelete}
           src={src}
@@ -75,6 +77,7 @@ const PreviewImageWithSlider = (props) => {
 PreviewImageWithSlider.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
+  fileName: PropTypes.string,
   max: PropTypes.number,
   min: PropTypes.number,
   onChange: PropTypes.func.isRequired,
@@ -87,6 +90,7 @@ PreviewImageWithSlider.propTypes = {
 PreviewImageWithSlider.defaultProps = {
   alt: undefined,
   className: undefined,
+  fileName: undefined,
   max: 2,
   min: -2,
   src: undefined,

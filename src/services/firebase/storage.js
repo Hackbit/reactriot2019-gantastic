@@ -34,6 +34,17 @@ class Storage {
 
     return urls;
   };
+
+  static deleteImage = async (downloadUrl) => {
+    try {
+      const imageRef = Storage.shared.refFromURL(downloadUrl);
+      await imageRef.delete();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return undefined;
+    }
+  };
 }
 
 

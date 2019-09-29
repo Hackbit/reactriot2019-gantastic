@@ -58,12 +58,13 @@ export const deleteButtonStyles = css`
   left: -8px;
   padding: 0 0 0 0;
   line-height: unset;
-  
+  transition: color 0.15s linear;
+
   &:hover {
     background-color: ${colors.transparent};
     border-width: 0;
     box-shadow: none;
-    color: ${colors.danger};
+    color: ${colors.dangerHover};
   }
 `;
 
@@ -78,6 +79,10 @@ export const iconRightStyles = css`
 export const emptyContentStyles = css`
   border: 1px dotted ${colors.shadow};
   border-radius: 10px;
+`;
+
+export const deletingContentStyles = css`
+  opacity: 0.7;
 `;
 
 export const previewLineThinColStyles = css`
@@ -119,4 +124,10 @@ export const cardTranslucentStyles = css`
   background-color: ${colors.transparent};
   border-color: ${colors.smokeAlpha};
   box-shadow: none;
+`;
+
+export const imageWrapperStyles = css`
+  border-radius: 10px;
+  height: 120px;
+  width: 120px;
 `;

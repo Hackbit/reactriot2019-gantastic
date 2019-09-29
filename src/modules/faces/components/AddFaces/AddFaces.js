@@ -32,9 +32,10 @@ const resultLineCss = css`
 const AddFaces = ({ onFacesMerge, onGetHistory }) => {
   const {
     files,
-    imageUrls,
     handleChange,
-  } = formHooks.useFileInputUpload(Storage.uploadImages);
+    handleDelete,
+    imageUrls,
+  } = formHooks.useFileInputUpload(Storage.uploadImages, Storage.deleteImage);
 
   const [imageSliderValues, setImageSliderValue] = useState({});
 
@@ -90,6 +91,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
               return (
                 <PreviewImageWithSlider
                   alt={url}
+                  fileName={f.name}
                   key={url}
                   onChange={(imageUrl, value) => {
                     setImageSliderValue({
@@ -97,7 +99,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
                       [imageUrl]: value,
                     });
                   }}
-                  onDelete={() => {}}
+                  onDelete={handleDelete}
                   src={url}
                 />
               );

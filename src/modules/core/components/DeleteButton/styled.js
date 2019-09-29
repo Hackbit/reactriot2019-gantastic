@@ -5,6 +5,10 @@ import { styles } from 'modules/core/constants';
 
 const StyledDeleteButton = styled.button`
   ${styles.deleteButtonStyles}
+  
+  &:active, &:focus {
+    outline: none;
+  }
 `;
 
 
