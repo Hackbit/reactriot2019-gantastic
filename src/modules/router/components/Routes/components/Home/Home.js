@@ -40,7 +40,7 @@ const Home = ({ history, isAuthenticated }) => {
               window.open('https://www.reactriot.com/entries/153-gantastic/vote');
             }}
           >
-            Vote for team Gantastic on ReactRiot
+            Vote for team Gantastic
           </Button>
           <Title css={css`margin-top: 40px; font-style: italic;`}>
             <iframe
