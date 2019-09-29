@@ -2,6 +2,8 @@
 
 [Try it out here!](https://face-tricks.firebaseapp.com)
 
+[Vote for team Gantastic](https://www.reactriot.com/entries/153-gantastic/vote)
+
 Upload any number of photos, and see what the offspring of all photo subjects might look like. :)
 
 Client: React/Redux/Redux Saga
