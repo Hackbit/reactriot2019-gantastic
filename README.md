@@ -6,9 +6,9 @@ Upload any number of photos, and see what the offspring of all photo subjects mi
 
 Client: React/Redux/Redux Saga
 
-API: Firebase functions
+Backend: Firebase functions, Heroku redis server
 
-AI: StyleGAN on Google Colab
+AI: Google Colab (StyleGAN)
 
 
 ## Available Scripts
