@@ -50,3 +50,18 @@ export const getCurrentResultCallback = createSelector(
   [getState],
   state => state.currentResultCallback,
 );
+
+export const getIsFetching = createSelector(
+  [getState],
+  state => state.isFetching,
+);
+
+export const getIsGenerating = createSelector(
+  [getState],
+  state => state.isGenerating,
+);
+
+export const getIsRetrieving = createSelector(
+  [getState],
+  state => state.isRetrieving,
+);

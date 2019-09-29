@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'styled-components';
 
 import { DeviceUtils } from 'utils';
 
-import { icons } from 'modules/core/constants';
+import { icons, variants } from 'modules/core/constants';
 
 import Button from '../Button';
 import ImageUpload from '../ImageUpload';
 import PreviewImage from '../PreviewImage';
+import Title from '../Title';
 
 import {
   StyledImageSection,
   StyledOptionsSection,
   StyledResultLineWrapper,
 } from './styled';
+
+const italicTitleStyles = css`
+  margin-top: 20px;
+  font-style: italic;
+`;
 
 
 const PreviewResultImage = (props) => {
@@ -22,8 +29,11 @@ const PreviewResultImage = (props) => {
     className,
     imageSliderValues,
     imageUrls,
+    isGenerating,
+    isRetrieving,
     onButtonClick,
     onFilesChange,
+    onReset,
     src,
     style,
   } = props;
@@ -65,15 +75,32 @@ const PreviewResultImage = (props) => {
         <StyledImageSection>
           <PreviewImage
             alt={alt}
-            fallbackIcon={icons.UNKNOWN}
-            fallbackToLoader={false}
-            isBigger
             className={className}
+            fallbackIcon={icons.UNKNOWN}
+            fallbackToLoader={isGenerating || isRetrieving}
+            loaderVariant={isGenerating ? variants.spinner.BASE : variants.spinner.BRAND}
+            isBigger
             src={src}
             style={style}
           />
         </StyledImageSection>
       </StyledResultLineWrapper>
+      {isGenerating && (
+        <Title css={italicTitleStyles}>(This can take 1 to 2 minutes)</Title>
+      )}
+      {isRetrieving && (
+        <Title css={italicTitleStyles}>Retrieving your result!</Title>
+      )}
+      {!!src && (
+        <Button
+          iconLeft={icons.RESET}
+          isCentered
+          onClick={onReset}
+          style={{ marginTop: '20px' }}
+        >
+          Reset
+        </Button>
+      )}
     </>
   );
 };
@@ -83,8 +110,11 @@ PreviewResultImage.propTypes = {
   className: PropTypes.string,
   imageSliderValues: PropTypes.shape(),
   imageUrls: PropTypes.arrayOf(PropTypes.string),
+  isGenerating: PropTypes.bool,
+  isRetrieving: PropTypes.bool,
   onButtonClick: PropTypes.func.isRequired,
   onFilesChange: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
   src: PropTypes.string,
   style: PropTypes.shape(),
 };
@@ -94,6 +124,8 @@ PreviewResultImage.defaultProps = {
   className: undefined,
   imageSliderValues: {},
   imageUrls: [],
+  isGenerating: false,
+  isRetrieving: false,
   src: undefined,
   style: undefined,
 };

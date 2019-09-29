@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { variants } from 'modules/core/constants';
+
 import Icon from '../Icon';
 import DeleteButton from '../DeleteButton';
 import Loader from '../Loader';
@@ -20,6 +22,7 @@ const PreviewImage = (props) => {
     fallbackToLoader,
     fileName,
     isBigger,
+    loaderVariant,
     onDelete,
     src,
     style,
@@ -59,7 +62,7 @@ const PreviewImage = (props) => {
     >
       {srcContents}
 
-      {!src && fallbackToLoader && <Loader />}
+      {!src && fallbackToLoader && <Loader variant={loaderVariant} />}
 
       {!src && !!fallbackIcon && <Icon icon={fallbackIcon} />}
 
@@ -75,6 +78,7 @@ PreviewImage.propTypes = {
   fallbackToLoader: PropTypes.bool,
   fileName: PropTypes.string,
   isBigger: PropTypes.bool,
+  loaderVariant: PropTypes.string,
   onDelete: PropTypes.func,
   src: PropTypes.string,
   style: PropTypes.shape(),
@@ -87,6 +91,7 @@ PreviewImage.defaultProps = {
   fallbackToLoader: true,
   fileName: undefined,
   isBigger: false,
+  loaderVariant: variants.spinner.BASE,
   src: undefined,
   style: undefined,
 };

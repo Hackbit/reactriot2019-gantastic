@@ -63,3 +63,7 @@ export const facesGetResultFailure = (message, error) => ({
   type: types.FACES_GET_RESULT_FAILURE,
   payload: { error, message },
 });
+
+export const facesReset = () => ({
+  type: types.FACES_RESET,
+});

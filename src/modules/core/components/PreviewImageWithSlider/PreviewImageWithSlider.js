@@ -17,6 +17,7 @@ const PreviewImageWithSlider = (props) => {
     alt,
     className,
     fileName,
+    isDisabled,
     max,
     min,
     onChange,
@@ -43,7 +44,7 @@ const PreviewImageWithSlider = (props) => {
 
       <StyledSliderSection>
         <Slider
-          disabled={!src}
+          disabled={isDisabled || !src}
           label=""
           max={max}
           min={min}
@@ -78,6 +79,7 @@ PreviewImageWithSlider.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
   fileName: PropTypes.string,
+  isDisabled: PropTypes.bool,
   max: PropTypes.number,
   min: PropTypes.number,
   onChange: PropTypes.func.isRequired,
@@ -91,6 +93,7 @@ PreviewImageWithSlider.defaultProps = {
   alt: undefined,
   className: undefined,
   fileName: undefined,
+  isDisabled: false,
   max: 2,
   min: -2,
   src: undefined,

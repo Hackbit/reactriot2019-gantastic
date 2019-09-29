@@ -13,6 +13,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   onResultProgress: actions.facesMergeProgress,
+  getResult: actions.facesGetResultRequest,
 };
 
 

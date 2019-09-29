@@ -13,6 +13,10 @@ const StyledButton = styled.button`
   ${props => props.success ? styles.successButtonStyles : ''}
 
   ${props => props.disabled ? styles.disabledButtonStyles : ''}
+  
+  &:focus, &:active {
+    outline: none;
+  }
 `;
 
 

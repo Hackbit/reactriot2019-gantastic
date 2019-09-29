@@ -8,10 +8,11 @@ class DataWatcher extends React.Component {
   resultRef = null;
 
   handleProgress = (snapshot) => {
-    const { onResultProgress } = this.props;
+    const { onResultProgress, getResult } = this.props;
     const value = snapshot.val() || {};
     onResultProgress(value);
     if (value.progress && value.progress >= 100) {
+      getResult();
       this.resultRef.off();
       this.resultRef = null;
     }
@@ -40,6 +41,7 @@ DataWatcher.propTypes = {
   children: PropTypes.node,
   currentProgress: PropTypes.number,
   currentResultPath: PropTypes.string,
+  getResult: PropTypes.func.isRequired,
   onResultProgress: PropTypes.func.isRequired,
 };
 

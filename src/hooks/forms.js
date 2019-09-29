@@ -31,10 +31,17 @@ export const useFileInputUpload = (onUpload, onDelete) => {
     }
   };
 
+  const handleReset = () => {
+    setFiles([]);
+    setImageUrls([]);
+    setUploads([]);
+  };
+
   return {
     files,
     handleChange,
     handleDelete,
+    handleReset,
     imageUrls,
     uploads,
   };

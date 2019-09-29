@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
 
@@ -16,6 +16,7 @@ import {
   PreviewImageWithSlider,
   PreviewResultImage,
   IconTitle,
+  Title,
 } from 'modules/core/components';
 
 import { PageSection } from './styled';
@@ -29,19 +30,18 @@ const resultLineCss = css`
   padding: 0 20px;
 `;
 
-const AddFaces = ({ onFacesMerge, onGetHistory, resultImageUrl }) => {
+const AddFaces = (props) => {
+  const { isGenerating, isRetrieving, onFacesMerge, onGetHistory, onReset, resultImageUrl } = props;
+
   const {
     files,
     handleChange,
     handleDelete,
+    handleReset,
     imageUrls,
   } = formHooks.useFileInputUpload(Storage.uploadImages, Storage.deleteImage);
 
   const [imageSliderValues, setImageSliderValue] = useState({});
-
-  useEffect(() => {
-    onGetHistory();
-  });
 
   const imagePreviews = files.length > 0 && (
     <>
@@ -70,6 +70,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory, resultImageUrl }) => {
             alt={url}
             fileName={f.name}
             key={url}
+            isDisabled={isGenerating}
             onChange={(imageUrl, value) => {
               setImageSliderValue({
                 ...imageSliderValues,
@@ -88,13 +89,24 @@ const AddFaces = ({ onFacesMerge, onGetHistory, resultImageUrl }) => {
     <>
       <PageLayout css={layoutCss}>
         <form>
+          <Title css={css`margin-top: 20px;`}>
+            Ever wondered what a baby would look like between...
+          </Title>
+
           <PageSection css={resultLineCss}>
             <PreviewResultImage
               alt="Result image"
               imageSliderValues={imageSliderValues}
               imageUrls={imageUrls}
+              isGenerating={isGenerating}
+              isRetrieving={isRetrieving}
               onButtonClick={onFacesMerge}
               onFilesChange={handleChange}
+              onReset={() => {
+                handleReset();
+                setImageSliderValue({});
+                onReset();
+              }}
               src={resultImageUrl}
             />
           </PageSection>
@@ -114,8 +126,11 @@ const AddFaces = ({ onFacesMerge, onGetHistory, resultImageUrl }) => {
 };
 
 AddFaces.propTypes = {
+  isGenerating: PropTypes.bool.isRequired,
+  isRetrieving: PropTypes.bool.isRequired,
   onFacesMerge: PropTypes.func.isRequired,
   onGetHistory: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
   resultImageUrl: PropTypes.string,
 };
 

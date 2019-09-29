@@ -9,7 +9,7 @@ export const Routes = {
 export const authRoutes = [
   { name: 'Home', label: 'Home', to: Routes.HOME },
   { name: 'Faces', label: 'Generator', to: Routes.FACES },
-  { name: 'History', label: 'History', to: Routes.HISTORY },
+  // { name: 'History', label: 'History', to: Routes.HISTORY },
   { name: 'Logout', label: 'Logout', to: Routes.LOGOUT },
 ];
 

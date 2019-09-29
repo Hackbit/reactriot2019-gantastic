@@ -8,11 +8,14 @@ import AddFaces from './AddFaces';
 
 const mapStateToProps = createStructuredSelector({
   resultImageUrl: selectors.getResultImageUrl,
+  isRetrieving: selectors.getIsRetrieving,
+  isGenerating: selectors.getIsGenerating,
 });
 
 const mapDispatchToProps = {
   onFacesMerge: actions.facesMergeRequest,
   onGetHistory: actions.facesGetHistoryRequest,
+  onReset: actions.facesReset,
 };
 
 

@@ -11,6 +11,7 @@ export const initialState = {
   },
   isFetching: false,
   isGenerating: false,
+  isRetrieving: false,
   currentOperationId: null,
   currentProgress: 0,
   currentProgressCallback: null,
@@ -107,21 +108,24 @@ export const reducer = (state = initialState, action = {}) => {
     case types.FACES_GET_RESULT_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isRetrieving: true,
       };
 
     case types.FACES_GET_RESULT_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isRetrieving: false,
         resultImageUrl: action.payload.resultImageUrl,
       };
 
     case types.FACES_GET_RESULT_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isRetrieving: false,
       };
+
+    case types.FACES_RESET:
+      return initialState;
 
     default:
       return state;
