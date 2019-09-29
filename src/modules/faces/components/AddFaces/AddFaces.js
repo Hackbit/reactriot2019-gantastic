@@ -99,6 +99,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
           {imageUrls.length > 0 && (
             <PageSection>
               <Button
+                iconLeft={icons.FACE}
                 isAllowed={imageUrls.length > 0}
                 onClick={() => {
                   const configs = { ...imageSliderValues };

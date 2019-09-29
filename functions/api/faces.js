@@ -1,8 +1,13 @@
-const redis = require('../redis');
+const getClient = require('../redis');
 const utils = require('./utils');
 
 
 const endpointUrl = 'https://us-central1-face-tricks.cloudfunctions.net/api/faces';
+const MAX_ID_KEY = 'max_id';
+const getFaceConfigKey = id => `${id}_faces`;
+const getResultKey = id => `${id}_result`;
+const getResultCallback = id => `${endpointUrl}/${id}`;
+const getProgressCallback = id => `${getResultCallback(id)}/progress`;
 
 /**
  * Stores the faces-merge config in redis.
@@ -14,17 +19,19 @@ const create = async (req, res) => {
   const { configs } = req.body;
 
   try {
-    let maxId = await redis.getAsync('maxid');
+    const redis = getClient();
+
+    let maxId = await redis.getAsync(MAX_ID_KEY);
 
     if (maxId === null) {
       maxId = 0;
-      redis.set('maxId', maxId);
+      redis.set(MAX_ID_KEY, maxId);
     }
 
-    redis.incr('maxId');
+    redis.incr(MAX_ID_KEY);
 
-    const resultCallbackUrl = `${endpointUrl}/${maxId}`;
-    const progressCallbackUrl = `${resultCallbackUrl}/progress`;
+    const resultCallbackUrl = getResultCallback(maxId);
+    const progressCallbackUrl = getProgressCallback(maxId);
 
     const updatedConfigs = {
       callback: resultCallbackUrl,
@@ -33,10 +40,12 @@ const create = async (req, res) => {
 
     const configsStr = JSON.stringify(updatedConfigs);
 
-    redis.set(`${maxId}_faces`, configsStr);
+    redis.set(getFaceConfigKey(maxId), configsStr);
+
+    redis.quit();
 
     const respData = utils.makeResponseResult(null, {
-      id: maxId,
+      id: maxId.toString(),
       resultCallback: resultCallbackUrl,
       progressCallback: progressCallbackUrl,
     });
@@ -58,7 +67,11 @@ const get = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const configsStr = await redis.getAsync(`${id}_faces`);
+    const redis = getClient();
+
+    const configsStr = await redis.getAsync(getFaceConfigKey(id));
+
+    redis.quit();
 
     const configs = JSON.parse(configsStr);
 
@@ -82,7 +95,11 @@ const success = async (req, res) => {
   const { id } = req.params;
 
   try {
-    redis.set(`${id}_result`, url);
+    const redis = getClient();
+
+    redis.set(getResultKey(id), url);
+
+    redis.quit();
 
     return res.sendStatus(204);
   } catch (err) {
@@ -101,7 +118,11 @@ const getResultProgress = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await redis.getAsync(`${id}_result`);
+    const redis = getClient();
+
+    const result = await redis.getAsync(getResultKey(id));
+
+    redis.quit();
 
     const isDone = result !== null;
 
@@ -124,7 +145,11 @@ const getResult = async (req, res) => {
   const { id } = req.params;
 
   try {
-    let url = await redis.getAsync(`${id}_result`);
+    const redis = getClient();
+
+    let url = await redis.getAsync(getResultKey(id));
+
+    redis.quit();
 
     const respData = utils.makeResponseResult(null, { id, url });
 
