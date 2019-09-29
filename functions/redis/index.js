@@ -4,12 +4,10 @@ const redis = require('redis');
 
 
 const url = functions.config().redis.url;
-let client;
-
 
 const getClient = () => {
-  client = client && client.connected ? client : redis.createClient(url);
-  client.getAsync = client.getAsync || promisify(client.get).bind(client);
+  const client = redis.createClient(url);
+  client.getAsync = promisify(client.get).bind(client);
   return client;
 };
 
