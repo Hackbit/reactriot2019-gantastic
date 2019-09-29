@@ -12,6 +12,7 @@ const Button = (props) => {
     className,
     iconLeft,
     iconRight,
+    id,
     isCentered,
     isDisabled,
     isGhost,
@@ -27,6 +28,7 @@ const Button = (props) => {
       className={className}
       disabled={isDisabled}
       ghost={isGhost}
+      id={id}
       onClick={onClick}
       style={style}
       success={isSuccess}
@@ -46,6 +48,7 @@ Button.propTypes = {
   className: PropTypes.string,
   iconLeft: PropTypes.shape(),
   iconRight: PropTypes.shape(),
+  id: PropTypes.string,
   isCentered: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isGhost: PropTypes.bool,
@@ -60,6 +63,7 @@ Button.defaultProps = {
   className: undefined,
   iconLeft: undefined,
   iconRight: undefined,
+  id: undefined,
   isCentered: false,
   isDisabled: false,
   isGhost: false,

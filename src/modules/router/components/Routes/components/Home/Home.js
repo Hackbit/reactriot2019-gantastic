@@ -13,10 +13,12 @@ import { PageSection } from './styled';
 const Home = ({ history, isAuthenticated }) => {
   return (
     <>
-      <PageLayout css={css`justify-content: flex-start;`}>
+      <PageLayout
+        css={css`justify-content: flex-start; padding-left: 20px; padding-right: 20px;`}
+      >
         <PageSection>
           <Title>Welcome to Face Tricks</Title>
-          <Title css={css`margin-top: 20px;`}>
+          <Title css={css`margin-top: 40px; margin-bottom: 40px;`}>
             Upload any number of photos, and Face Tricks will combine them to show you what
             the offspring of the photo subjects might look like!
           </Title>
@@ -28,7 +30,28 @@ const Home = ({ history, isAuthenticated }) => {
           >
             Try the Generator
           </Button>
-          <Title css={css`margin-top: 20px; font-style: italic;`}>Built during ReactRiot 2019</Title>
+          <br />
+          <Button
+            id="vote-btn"
+            isGhost
+            style={{ marginTop: '40px' }}
+            iconLeft={icons.HEART}
+            onClick={() => {
+              window.open('https://www.reactriot.com/entries/153-gantastic/vote');
+            }}
+          >
+            Vote for team Gantastic on ReactRiot
+          </Button>
+          <Title css={css`margin-top: 40px; font-style: italic;`}>
+            <iframe
+              title="Star on Github"
+              src="https://ghbtns.com/github-btn.html?user=Hackbit&repo=reactriot2019-gantastic&type=star&count=false&size=large"
+              width="80px"
+              height="30px"
+              frameBorder="0"
+              scrolling="0"
+            /> on Github
+          </Title>
         </PageSection>
       </PageLayout>
 
@@ -51,7 +74,7 @@ const Home = ({ history, isAuthenticated }) => {
 
 Home.propTypes = {
   history: PropTypes.shape().isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 export default Home;

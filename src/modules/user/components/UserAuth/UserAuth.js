@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { css } from 'styled-components';
 
 import { DeviceUtils } from 'utils'
 
@@ -38,14 +39,20 @@ const UserAuth = (props) => {
 
   return (
     <>
-      <PageLayout>
+      <PageLayout css={css`padding-left: 20px; padding-right: 20px;`}>
         <div>
-          <Title>Please sign in</Title>
+          <Title>Choose a sign-in provider:</Title>
 
           <StyledFirebaseAuth
             uiConfig={fireUiConfig}
             firebaseAuth={Auth.shared}
           />
+
+          <Title css={css`font-style: italic; margin-top: 40px; opacity: 0.5;`}>
+            We store only your user ID, and the images you upload.
+            <br />
+            Signing in helps us keep your image URLs private.
+          </Title>
         </div>
       </PageLayout>
 
