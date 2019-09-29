@@ -5,6 +5,8 @@ import { constants } from 'modules/router';
 
 import { Auth } from 'services';
 
+import { Nav } from 'modules/core/components';
+
 
 const Logout = ({ history }) => {
   useEffect(() => {
@@ -17,7 +19,16 @@ const Logout = ({ history }) => {
     });
   });
 
-  return <div>Logging out...</div>;
+  return (
+    <>
+      <div>Logging out...</div>
+
+      <Nav
+        items={constants.authRoutes}
+        selectedItem="Logout"
+      />
+    </>
+  );
 };
 
 Logout.propTypes = {

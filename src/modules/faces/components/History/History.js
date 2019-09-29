@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { constants } from 'modules/router';
 
-import { Nav, PageLayout } from 'modules/core/components';
+import { Nav, PageLayout, Title } from 'modules/core/components';
 
 
 const History = (props) => {
@@ -21,12 +21,12 @@ const History = (props) => {
   return (
     <>
       <PageLayout>
-        History page
+        <Title>Your Generator History</Title>
       </PageLayout>
 
       <Nav
         items={constants.authRoutes}
-        selectedItem={constants.authRoutes[1].name}
+        selectedItem="History"
       />
     </>
   );

@@ -1,6 +1,7 @@
 export { default as Button } from './Button';
 export { default as DeleteButton } from './DeleteButton';
 export { default as Icon } from './Icon';
+export { default as IconTitle } from './IconTitle';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Layout } from './Layout';
 export { default as Loader } from './Loader';
@@ -10,3 +11,4 @@ export { default as PreviewImage } from './PreviewImage';
 export { default as PreviewImageWithSlider } from './PreviewImageWithSlider';
 export { default as PreviewResultImage } from './PreviewResultImage';
 export { default as TextInput } from './TextInput';
+export { default as Title } from './Title';

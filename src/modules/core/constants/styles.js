@@ -74,12 +74,13 @@ export const deleteButtonStyles = css`
 
 export const disabledButtonStyles = css`
   background-color: ${colors.disabled};
-  border-color: ${colors.disabled};
+  border-color: ${colors.smoke};
   color: ${colors.smoke};
-  
+  box-shadow: none;
+
   &:hover {
     background-color: ${colors.disabled};
-    border-color: ${colors.disabled};
+    border-color: ${colors.smoke};
     box-shadow: none;
     color: ${colors.smoke};
   }
@@ -125,7 +126,6 @@ export const previewLineWideColStyles = css`
   flex-basis: calc(100% - 120px);
   justify-content: space-between;
   max-height: 44px;
-  padding: 0 0 0 20px;
   width: calc(100% - 120px);
 `;
 

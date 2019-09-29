@@ -8,7 +8,7 @@ import { Auth } from 'services';
 
 import { constants } from 'modules/router';
 
-import { Nav, PageLayout } from 'modules/core/components';
+import { Nav, PageLayout, Title } from 'modules/core/components';
 
 
 const uiConfig = {
@@ -40,7 +40,7 @@ const UserAuth = (props) => {
     <>
       <PageLayout>
         <div>
-          <span>Please sign in</span>
+          <Title>Please sign in</Title>
 
           <StyledFirebaseAuth
             uiConfig={fireUiConfig}
@@ -51,7 +51,7 @@ const UserAuth = (props) => {
 
       <Nav
         items={constants.anonRoutes}
-        selectedItem={constants.anonRoutes[0].name}
+        selectedItem="Login"
       />
     </>
   );

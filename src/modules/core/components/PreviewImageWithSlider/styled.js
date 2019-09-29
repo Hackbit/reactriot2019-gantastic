@@ -24,10 +24,10 @@ const StyledNumberInput = styled.input`
   box-shadow: none;
   color: ${colors.inputText};
   font-size: 18px;
-  max-width: 60px;
+  max-width: 80px;
   outline: none;
   padding: 0 8px;
-  width: 60px;
+  width: 80px;
   transition: all 0.1s linear 0s;
   
   &:focus {

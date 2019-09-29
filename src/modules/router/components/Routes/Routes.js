@@ -1,16 +1,22 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import * as constants from 'modules/router/constants';
 
 import { AddFaces, History } from 'modules/faces/components';
 import { Logout, UserAuth } from 'modules/user/components';
 
-import { AnonRoute, AuthRoute } from './components';
+import { AnonRoute, AuthRoute, Home } from './components';
 
 
 const Routes = () => (
   <Switch>
+    <Route
+      exact
+      path={constants.Routes.HOME}
+      component={Home}
+    />
+
     <AnonRoute
       Component={UserAuth}
       path={constants.Routes.AUTH}

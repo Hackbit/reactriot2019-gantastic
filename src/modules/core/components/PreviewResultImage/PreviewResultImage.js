@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { DeviceUtils } from 'utils';
+
 import { icons } from 'modules/core/constants';
 
 import Button from '../Button';
@@ -11,7 +13,6 @@ import {
   StyledImageSection,
   StyledOptionsSection,
   StyledResultLineWrapper,
-  StyledResultPreviewText,
 } from './styled';
 
 
@@ -37,11 +38,10 @@ const PreviewResultImage = (props) => {
     onButtonClick(configs);
   };
 
+  const genText = DeviceUtils.isMobile.any() ? ' Generate ' : 'Generate Result';
+
   return (
     <>
-      {/*<StyledResultPreviewText>*/}
-      {/*  Add images and generate to preview*/}
-      {/*</StyledResultPreviewText>*/}
       <StyledResultLineWrapper>
         <StyledOptionsSection>
           <ImageUpload
@@ -58,7 +58,7 @@ const PreviewResultImage = (props) => {
             iconLeft={icons.FACE}
             onClick={handleGenerateButtonClick}
           >
-            Generate Result
+            {genText}
           </Button>
         </StyledOptionsSection>
 

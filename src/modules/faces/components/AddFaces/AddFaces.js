@@ -8,17 +8,17 @@ import { formHooks } from 'hooks';
 
 import { constants } from 'modules/router';
 
-import { Storage } from 'services';
+import { Storage } from 'services'
 
 import {
-  ImageUpload,
   Nav,
   PageLayout,
   PreviewImageWithSlider,
   PreviewResultImage,
+  IconTitle,
 } from 'modules/core/components';
 
-import { PageSection, SectionTitle } from './styled';
+import { PageSection } from './styled';
 
 
 const layoutCss = css`
@@ -45,7 +45,10 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
 
   const imagePreviews = files.length > 0 && (
     <>
-      <SectionTitle>Adjust Inputs</SectionTitle>
+      <IconTitle icon={icons.SETTINGS}>
+        Adjust Inputs
+      </IconTitle>
+
       {files.map((f) => {
         const filteredUrls = imageUrls.filter(url => url.includes(encodeURIComponent(f.name)));
 
@@ -104,7 +107,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
 
       <Nav
         items={constants.authRoutes}
-        selectedItem={constants.authRoutes[0].name}
+        selectedItem="Faces"
       />
     </>
   );
