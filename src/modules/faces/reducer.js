@@ -36,7 +36,6 @@ export const reducer = (state = initialState, action = {}) => {
         currentProgressCallback: action.payload.progressCallback,
         currentResultCallback: action.payload.resultCallback,
         currentResultPath: action.payload.resultPath,
-        resultImageUrl: action.payload.resultImageUrl,
       };
 
     case types.FACES_MERGE_FAILURE:
@@ -103,6 +102,25 @@ export const reducer = (state = initialState, action = {}) => {
           ...state.history,
           isFetching: false,
         },
+      };
+
+    case types.FACES_GET_RESULT_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+
+    case types.FACES_GET_RESULT_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        resultImageUrl: action.payload.resultImageUrl,
+      };
+
+    case types.FACES_GET_RESULT_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
       };
 
     default:

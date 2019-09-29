@@ -3,13 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
 const admin = require('firebase-admin');
-const { promisify } = require('util');
 
 const getClient = require('../redis');
 const utils = require('./utils');
 
-
-const writeFile = promisify(fs.writeFile);
 
 const endpointUrl = 'https://us-central1-face-tricks.cloudfunctions.net/api/faces';
 
@@ -22,7 +19,8 @@ const getResultDbPath = (id) => `results/${id}`;
 const getResultImageCallback = (id) => `results/${id}/result`;
 const getResultKey = id => `${id}_faces:result`;
 const getResultUserKeyPath = (id, userId) => `users/${userId}/results/${id}`;
-const getTempFileName = (id) => `${id}_result.png`;
+const getTempFileName = id => `${id}_result.png`;
+const getStorageResultPath = id => `results/${id}/image.jpg`;
 
 /**
  * Stores the faces-merge config in redis.
@@ -181,38 +179,36 @@ const getResultProgress = async (req, res) => {
 const getResult = async (req, res) => {
   const { id } = req.params;
 
-  return new Promise(async (resolve, reject) => {
-    try {
-      const redis = getClient({ return_buffers: true });
+  try {
+    const redis = getClient({ return_buffers: true });
 
-      const resultBuffer = await redis.getAsync(getResultKey(id));
+    const resultBuffer = await redis.getAsync(getResultKey(id));
 
-      redis.quit();
+    redis.quit();
 
-      const tempFileName = getTempFileName(id);
-      const tempFilePath = path.join(os.tmpdir(), tempFileName);
+    const tempFileName = getTempFileName(id);
+    const tempFilePath = path.join(os.tmpdir(), tempFileName);
 
-      await sharp(resultBuffer).jpeg().toFile(tempFilePath);
+    await sharp(resultBuffer).jpeg().toFile(tempFilePath);
 
-      const bucket = admin.storage().bucket();
+    const bucket = admin.storage().bucket();
 
-      const storagePath = `results/${id}/image.jpg`;
+    const storagePath = getStorageResultPath(id);
 
-      await bucket.upload(tempFilePath, {
-        metadata: {
-          contentType: 'image/jpeg',
-        },
-        destination: storagePath,
-      });
+    await bucket.upload(tempFilePath, {
+      metadata: {
+        contentType: 'image/jpeg',
+      },
+      destination: storagePath,
+    });
 
-      fs.unlinkSync(tempFilePath);
+    fs.unlinkSync(tempFilePath);
 
-      resolve(res.send(utils.makeResponseResult(null, { storagePath })));
-    } catch (err) {
-      console.log(err);
-      reject(res.send(utils.makeResponseResult(err)));
-    }
-  });
+    return res.send(utils.makeResponseResult(null, { storagePath }));
+  } catch (err) {
+    console.log(err);
+    return res.send(utils.makeResponseResult(err));
+  }
 };
 
 

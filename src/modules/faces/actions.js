@@ -48,3 +48,18 @@ export const facesMergeProgress = payload => ({
   type: types.FACES_MERGE_PROGRESS,
   payload,
 });
+
+export const facesGetResultRequest = storagePath => ({
+  type: types.FACES_GET_RESULT_REQUEST,
+  payload: { storagePath },
+});
+
+export const facesGetResultSuccess = (resultImageUrl) => ({
+  type: types.FACES_GET_RESULT_SUCCESS,
+  payload: { resultImageUrl },
+});
+
+export const facesGetResultFailure = (message, error) => ({
+  type: types.FACES_GET_RESULT_FAILURE,
+  payload: { error, message },
+});

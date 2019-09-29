@@ -1,10 +1,13 @@
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
+import { Storage } from 'services';
+
 import { selectors as userSelectors } from 'modules/user';
 
 import * as actions from './actions';
 import * as api from './api';
 import * as types from './types';
+import * as selectors from './selectors';
 
 
 function* handleMergeFaces(imageSliderConfigs) {
@@ -60,10 +63,24 @@ function* handleGetConfigs() {
   }
 }
 
+function* handleGetResult() {
+  try {
+    const resultUrl = yield select(selectors.getCurrentResultCallback);
+    const pathResponse = yield call(api.getResultPath, resultUrl);
+    const { storagePath } = pathResponse.data.payload;
+    const imgUrl = yield call(Storage.getDownloadUrl, storagePath);
+
+    yield put(actions.facesGetResultSuccess(imgUrl));
+  } catch (error) {
+    yield put(actions.facesGetResultFailure(error.message, error));
+  }
+}
+
 function* watch() {
   while (true) {
     const { type, payload = {} } = yield take([
       types.FACES_GET_HISTORY_REQUEST,
+      types.FACES_GET_RESULT_REQUEST,
       types.FACES_MERGE_REQUEST,
       types.FACES_SAVE_CONFIGS_REQUEST,
     ]);
@@ -79,6 +96,10 @@ function* watch() {
 
       case types.FACES_GET_HISTORY_REQUEST:
         yield fork(handleGetConfigs);
+        break;
+
+      case types.FACES_GET_RESULT_REQUEST:
+        yield fork(handleGetResult);
         break;
 
       default:

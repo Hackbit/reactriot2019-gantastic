@@ -35,3 +35,18 @@ export const getCurrentProgress = createSelector(
   [getState],
   state => state.currentProgress,
 );
+
+export const getOpId = createSelector(
+  [getState],
+  state => state.currentOperationId,
+);
+
+export const getResultImageUrl = createSelector(
+  [getState],
+  state => state.resultImageUrl,
+);
+
+export const getCurrentResultCallback = createSelector(
+  [getState],
+  state => state.currentResultCallback,
+);

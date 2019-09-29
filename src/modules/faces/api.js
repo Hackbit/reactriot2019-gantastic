@@ -15,6 +15,4 @@ export const getHistory = async () => (
   Database.getConfigsHistory()
 );
 
-export const get12 = async () => {
-  return axios.get(`${endpoint}/12/result`);
-};
+export const getResultPath = async (getUrl) => axios.get(getUrl);

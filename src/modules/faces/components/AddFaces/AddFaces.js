@@ -10,8 +10,6 @@ import { constants } from 'modules/router';
 
 import { Storage } from 'services'
 
-import { get12 } from '../../api';
-
 import {
   Nav,
   PageLayout,
@@ -31,7 +29,7 @@ const resultLineCss = css`
   padding: 0 20px;
 `;
 
-const AddFaces = ({ onFacesMerge, onGetHistory }) => {
+const AddFaces = ({ onFacesMerge, onGetHistory, resultImageUrl }) => {
   const {
     files,
     handleChange,
@@ -39,21 +37,10 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
     imageUrls,
   } = formHooks.useFileInputUpload(Storage.uploadImages, Storage.deleteImage);
 
-  const [generatedImage, setGeneratedImage] = useState(undefined);
   const [imageSliderValues, setImageSliderValue] = useState({});
 
   useEffect(() => {
     onGetHistory();
-    if (!generatedImage) {
-      get12().then(async (resp) => {
-        const { storagePath } = resp.data.payload;
-        const imgUrl = await Storage.getDownloadUrl(storagePath);
-        setGeneratedImage(imgUrl);
-        // let base64String = btoa(String.fromCharCode(...new Uint8Array(resp.data)));
-        // const img = 'data:image/jpeg;base64,' + base64String;
-        // setGeneratedImage(img);
-      });
-    }
   });
 
   const imagePreviews = files.length > 0 && (
@@ -108,7 +95,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
               imageUrls={imageUrls}
               onButtonClick={onFacesMerge}
               onFilesChange={handleChange}
-              src={generatedImage}
+              src={resultImageUrl}
             />
           </PageSection>
 
@@ -129,6 +116,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
 AddFaces.propTypes = {
   onFacesMerge: PropTypes.func.isRequired,
   onGetHistory: PropTypes.func.isRequired,
+  resultImageUrl: PropTypes.string,
 };
 
 
