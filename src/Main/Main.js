@@ -14,6 +14,7 @@ import 'assets/styles/main.css';
 import createStore from 'store';
 
 import { Layout } from 'modules/core/components';
+import { DataWatcher } from 'modules/core/wrappers';
 import { Routes } from 'modules/router/components';
 
 
@@ -25,6 +26,7 @@ const Main = () => {
       <Router>
         <div className="main">
           <Layout>
+            <DataWatcher />
             <Routes />
           </Layout>
         </div>

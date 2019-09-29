@@ -10,9 +10,12 @@ export const initialState = {
     isFetching: false,
   },
   isFetching: false,
+  isGenerating: false,
   currentOperationId: null,
+  currentProgress: 0,
   currentProgressCallback: null,
   currentResultCallback: null,
+  currentResultPath: null,
 };
 
 export const reducer = (state = initialState, action = {}) => {
@@ -27,13 +30,22 @@ export const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isFetching: false,
+        isGenerating: false,
         currentOperationId: action.payload.id,
         currentProgressCallback: action.payload.progressCallback,
         currentResultCallback: action.payload.resultCallback,
+        currentResultPath: action.payload.resultPath,
       };
 
     case types.FACES_MERGE_FAILURE:
       return initialState;
+
+    case types.FACES_MERGE_PROGRESS:
+      return {
+        ...state,
+        isGenerating: action.payload.progress < 100,
+        currentProgress: action.payload.progress,
+      };
 
     case types.FACES_SAVE_CONFIGS_REQUEST:
       return {

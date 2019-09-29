@@ -43,3 +43,8 @@ export const facesGetHistoryFailure = (message, error) => ({
   type: types.FACES_GET_HISTORY_FAILURE,
   payload: { error, message },
 });
+
+export const facesMergeProgress = payload => ({
+  type: types.FACES_MERGE_PROGRESS,
+  payload,
+});

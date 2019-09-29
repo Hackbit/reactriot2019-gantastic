@@ -25,3 +25,13 @@ export const getHistoryIsFetching = createSelector(
   [getHistory],
   history => history.isFetching,
 );
+
+export const getCurrentResultPath = createSelector(
+  [getState],
+  state => state.currentResultPath,
+);
+
+export const getCurrentProgress = createSelector(
+  [getState],
+  state => state.currentProgress,
+);

@@ -1,4 +1,4 @@
-const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
 const utils = require('./utils');
 
@@ -16,7 +16,8 @@ const getHistory = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const snapshot = await functions.database
+    const snapshot = await admin
+      .database()
       .ref('users')
       .child(id)
       .child('configs')

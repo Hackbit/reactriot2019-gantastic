@@ -1,13 +1,15 @@
+const admin = require('firebase-admin');
+
 const getClient = require('../redis');
 const utils = require('./utils');
-
 
 const endpointUrl = 'https://us-central1-face-tricks.cloudfunctions.net/api/faces';
 const MAX_ID_KEY = 'max_id';
 const getFaceConfigKey = id => `${id}_faces`;
 const getResultKey = id => `${id}_result`;
-const getResultCallback = id => `${endpointUrl}/${id}`;
+const getResultCallback = (id, userId) => `${endpointUrl}/${id}_${userId}`;
 const getProgressCallback = id => `${getResultCallback(id)}/progress`;
+const getResultDbPath = (id, userId) => `users/${userId}/results/${id}`;
 
 /**
  * Stores the faces-merge config in redis.
@@ -16,7 +18,7 @@ const getProgressCallback = id => `${getResultCallback(id)}/progress`;
  * @return {Promise<>}
  */
 const create = async (req, res) => {
-  const { configs } = req.body;
+  const { configs, userId } = req.body;
 
   try {
     const redis = getClient();
@@ -28,10 +30,20 @@ const create = async (req, res) => {
       redis.set(MAX_ID_KEY, maxId);
     }
 
+    const resultDbPath = getResultDbPath(maxId, userId);
+    await admin
+      .database()
+      .ref()
+      .child(resultDbPath)
+      .set({
+        progress: 0,
+        image: '',
+      });
+
     redis.incr(MAX_ID_KEY);
 
-    const resultCallbackUrl = getResultCallback(maxId);
-    const progressCallbackUrl = getProgressCallback(maxId);
+    const resultCallbackUrl = getResultCallback(maxId, userId);
+    const progressCallbackUrl = getProgressCallback(maxId, userId);
 
     const updatedConfigs = {
       callback: resultCallbackUrl,
@@ -46,6 +58,7 @@ const create = async (req, res) => {
 
     const respData = utils.makeResponseResult(null, {
       id: maxId.toString(),
+      resultPath: resultDbPath,
       resultCallback: resultCallbackUrl,
       progressCallback: progressCallbackUrl,
     });
@@ -95,13 +108,25 @@ const success = async (req, res) => {
   const { id } = req.params;
 
   try {
+    const parts = id.split('_');
+    const idPart = parts[0];
+    const userIdPart = parts[1];
+
     const redis = getClient();
 
-    redis.set(getResultKey(id), url);
+    redis.set(getResultKey(idPart), url);
+
+    await admin
+      .database()
+      .ref('users')
+      .child(userIdPart)
+      .child('results')
+      .child(idPart)
+      .set({ progress: 100, image: url || '' });
 
     redis.quit();
 
-    return res.sendStatus(204);
+    return res.send(utils.makeResponseResult());
   } catch (err) {
     console.log(err);
     return res.send(utils.makeResponseResult(err));

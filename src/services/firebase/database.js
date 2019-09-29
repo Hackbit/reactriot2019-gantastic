@@ -35,6 +35,17 @@ class Database {
 
     return snapshot.val();
   };
+
+  static listenToRef = (path, callback) => {
+    const ref = Database
+      .shared
+      .ref()
+      .child(path);
+
+    ref.on('value', callback);
+
+    return ref;
+  };
 }
 
 

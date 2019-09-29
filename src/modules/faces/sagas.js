@@ -1,4 +1,6 @@
-import { all, call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, select, take } from 'redux-saga/effects';
+
+import { selectors as userSelectors } from 'modules/user';
 
 import * as actions from './actions';
 import * as api from './api';
@@ -7,6 +9,8 @@ import * as types from './types';
 
 function* handleMergeFaces(imageSliderConfigs) {
   try {
+    const userId = yield select(userSelectors.getId);
+
     const configs = {
       op: ['+'],
     };
@@ -22,7 +26,7 @@ function* handleMergeFaces(imageSliderConfigs) {
       configs.op.push(opVal);
     });
 
-    const response = yield call(api.postFacesUrls, { configs });
+    const response = yield call(api.postFacesUrls, { configs, userId });
 
     const { payload } = response.data;
 
