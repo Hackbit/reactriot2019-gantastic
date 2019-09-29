@@ -38,8 +38,8 @@ const Button = (props) => {
 Button.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  iconLeft: PropTypes.node,
-  iconRight: PropTypes.node,
+  iconLeft: PropTypes.shape(),
+  iconRight: PropTypes.shape(),
   isDisabled: PropTypes.bool,
   isGhost: PropTypes.bool,
   onClick: PropTypes.func,

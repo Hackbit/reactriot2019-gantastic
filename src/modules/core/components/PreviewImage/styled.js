@@ -7,7 +7,6 @@ const StyledImageWrapper = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 2px 0 #a4a7b5;
   height: 120px;
-  overflow: hidden;
   width: 120px;
   position: relative;
 
@@ -16,6 +15,7 @@ const StyledImageWrapper = styled.div`
 
 const StyledPreviewImage = styled.img`
   display: block;
+  border-radius: 10px;
   min-height: 100%;
   min-width: 100%;
   object-fit: cover;

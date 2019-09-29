@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import DeleteButton from '../DeleteButton';
 import Loader from '../Loader';
 
 import {
@@ -9,14 +10,18 @@ import {
 } from './styled';
 
 
-const PreviewImage = ({ alt, className, fallbackToLoader, src, style }) => {
+const PreviewImage = ({ alt, className, fallbackToLoader, onDelete, src, style }) => {
   const contents = src ? (
-    <StyledPreviewImage
-      alt={alt}
-      className={className}
-      src={src}
-      style={style}
-    />
+    <>
+      {!!onDelete && <DeleteButton onClick={onDelete} />}
+
+      <StyledPreviewImage
+        alt={alt}
+        className={className}
+        src={src}
+        style={style}
+      />
+    </>
   ) : fallbackToLoader && <Loader />;
 
   return (
@@ -30,6 +35,7 @@ PreviewImage.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
   fallbackToLoader: PropTypes.bool,
+  onDelete: PropTypes.func,
   src: PropTypes.string,
   style: PropTypes.shape(),
 };

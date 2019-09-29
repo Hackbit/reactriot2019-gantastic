@@ -11,7 +11,6 @@ import { constants } from 'modules/router';
 import { Storage } from 'services';
 
 import {
-  Button,
   ImageUpload,
   Nav,
   PageLayout,
@@ -24,6 +23,10 @@ import { PageSection } from './styled';
 
 const layoutCss = css`
   justify-content: flex-start;
+`;
+
+const resultLineCss = css`
+  padding: 0 20px;
 `;
 
 const AddFaces = ({ onFacesMerge, onGetHistory }) => {
@@ -54,9 +57,12 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
           </PageSection>
 
           {files.length > 0 && (
-            <PageSection>
+            <PageSection css={resultLineCss}>
               <PreviewResultImage
                 alt="Result image"
+                imageSliderValues={imageSliderValues}
+                imageUrls={imageUrls}
+                onButtonClick={onFacesMerge}
                 src={undefined}
               />
             </PageSection>
@@ -74,6 +80,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
                     alt='Preview placeholder'
                     key={f.name}
                     onChange={() => {}}
+                    onDelete={() => {}}
                   />
                 );
               }
@@ -90,33 +97,12 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
                       [imageUrl]: value,
                     });
                   }}
+                  onDelete={() => {}}
                   src={url}
                 />
               );
             })}
           </PageSection>
-
-          {imageUrls.length > 0 && (
-            <PageSection>
-              <Button
-                iconLeft={icons.FACE}
-                isAllowed={imageUrls.length > 0}
-                onClick={() => {
-                  const configs = { ...imageSliderValues };
-
-                  imageUrls.forEach((u) => {
-                    if (!configs[u]) {
-                      configs[u] = 0.1;
-                    }
-                  });
-
-                  onFacesMerge(configs);
-                }}
-              >
-                Do Face Tricks
-              </Button>
-            </PageSection>
-          )}
         </form>
       </PageLayout>
 

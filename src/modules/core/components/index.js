@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as DeleteButton } from './DeleteButton';
 export { default as Icon } from './Icon';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Layout } from './Layout';

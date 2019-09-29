@@ -46,6 +46,27 @@ export const buttonStyles = css`
   }
 `;
 
+export const deleteButtonStyles = css`
+  ${buttonStyles}
+
+  background-color: ${colors.transparent};
+  border-width: 0;
+  box-shadow: none;
+  color: ${colors.danger};
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  padding: 0 0 0 0;
+  line-height: unset;
+  
+  &:hover {
+    background-color: ${colors.transparent};
+    border-width: 0;
+    box-shadow: none;
+    color: ${colors.danger};
+  }
+`;
+
 export const iconLeftStyles = css`
   margin-right: 8px;
 `;
@@ -72,4 +93,30 @@ export const previewLineWideColStyles = css`
   max-height: 44px;
   padding: 0 0 0 20px;
   width: calc(100% - 120px);
+`;
+
+export const resultPreviewLineWideColStyles = css`
+  ${previewLineWideColStyles}
+  padding: 0 0 0 0;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const cardStyles = css`
+  background-clip: padding-box;
+  background-color: ${colors.white};
+  border-radius: 0.875rem;
+  border: 0.0625rem solid ${colors.smoke};
+  box-shadow: 0 1px 2px 0 ${colors.smoke};
+  display: block;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+`;
+
+export const cardTranslucentStyles = css`
+  ${cardStyles}
+  background-color: ${colors.transparent};
+  border-color: ${colors.smokeAlpha};
+  box-shadow: none;
 `;

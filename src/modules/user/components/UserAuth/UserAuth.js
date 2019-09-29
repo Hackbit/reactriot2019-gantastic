@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
+import { DeviceUtils } from 'utils'
+
 import { Auth } from 'services';
 
 import { constants } from 'modules/router';
@@ -10,7 +12,6 @@ import { Nav, PageLayout } from 'modules/core/components';
 
 
 const uiConfig = {
-  signInFlow: 'popup',
   signInSuccessUrl: '/faces',
   signInOptions: [
     Auth.singleton.TwitterAuthProvider.PROVIDER_ID,
@@ -29,6 +30,12 @@ const UserAuth = (props) => {
     return null;
   }
 
+  const isMobile = DeviceUtils.isMobile.any();
+  const fireUiConfig = isMobile ? uiConfig : {
+    ...uiConfig,
+    signInFlow: 'popup',
+  };
+
   return (
     <>
       <PageLayout>
@@ -36,7 +43,7 @@ const UserAuth = (props) => {
           <span>Please sign in</span>
 
           <StyledFirebaseAuth
-            uiConfig={uiConfig}
+            uiConfig={fireUiConfig}
             firebaseAuth={Auth.shared}
           />
         </div>

@@ -19,6 +19,7 @@ const PreviewImageWithSlider = (props) => {
     max,
     min,
     onChange,
+    onDelete,
     src,
     step,
     style,
@@ -32,6 +33,7 @@ const PreviewImageWithSlider = (props) => {
         <PreviewImage
           alt={alt}
           className={className}
+          onDelete={onDelete}
           src={src}
           style={style}
         />
@@ -76,6 +78,7 @@ PreviewImageWithSlider.propTypes = {
   max: PropTypes.number,
   min: PropTypes.number,
   onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   src: PropTypes.string,
   step: PropTypes.number,
   style: PropTypes.shape(),
