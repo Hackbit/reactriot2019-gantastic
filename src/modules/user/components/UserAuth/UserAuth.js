@@ -10,10 +10,12 @@ import { Nav, PageLayout } from 'modules/core/components';
 
 
 const uiConfig = {
+  signInFlow: 'popup',
+  signInSuccessUrl: '/faces',
   signInOptions: [
     Auth.singleton.TwitterAuthProvider.PROVIDER_ID,
     Auth.singleton.GithubAuthProvider.PROVIDER_ID,
-    Auth.singleton.PhoneAuthProvider.PROVIDER_ID,
+    Auth.singleton.GoogleAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
     signInSuccessWithAuthResult: () => false,
