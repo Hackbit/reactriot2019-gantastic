@@ -45,6 +45,18 @@ class Storage {
       return undefined;
     }
   };
+
+  static getDownloadUrl = async (pathString) => {
+    try {
+      return Storage.shared
+        .ref()
+        .child(pathString)
+        .getDownloadURL();
+    } catch (e) {
+      console.log(e);
+      return undefined;
+    }
+  };
 }
 
 

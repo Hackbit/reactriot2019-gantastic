@@ -5,8 +5,8 @@ const redis = require('redis');
 
 const url = functions.config().redis.url;
 
-const getClient = () => {
-  const client = redis.createClient(url);
+const getClient = (options = {}) => {
+  const client = redis.createClient(url, options);
   client.getAsync = promisify(client.get).bind(client);
   return client;
 };

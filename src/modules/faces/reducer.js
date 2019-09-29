@@ -16,6 +16,7 @@ export const initialState = {
   currentProgressCallback: null,
   currentResultCallback: null,
   currentResultPath: null,
+  resultImageUrl: null,
 };
 
 export const reducer = (state = initialState, action = {}) => {
@@ -35,6 +36,7 @@ export const reducer = (state = initialState, action = {}) => {
         currentProgressCallback: action.payload.progressCallback,
         currentResultCallback: action.payload.resultCallback,
         currentResultPath: action.payload.resultPath,
+        resultImageUrl: action.payload.resultImageUrl,
       };
 
     case types.FACES_MERGE_FAILURE:

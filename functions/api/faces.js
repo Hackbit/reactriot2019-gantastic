@@ -1,6 +1,7 @@
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
+const sharp = require('sharp');
 const admin = require('firebase-admin');
 const { promisify } = require('util');
 
@@ -18,6 +19,7 @@ const getFaceConfigKey = id => `${id}_faces`;
 const getProgressCallback = id => `${getResultCallback(id)}/progress`;
 const getResultCallback = (id) => `${endpointUrl}/${id}`;
 const getResultDbPath = (id) => `results/${id}`;
+const getResultImageCallback = (id) => `results/${id}/result`;
 const getResultKey = id => `${id}_faces:result`;
 const getResultUserKeyPath = (id, userId) => `users/${userId}/results/${id}`;
 const getTempFileName = (id) => `${id}_result.png`;
@@ -74,9 +76,12 @@ const create = async (req, res) => {
 
     redis.quit();
 
+    const getResultImageUrl = getResultImageCallback(maxId);
+
     const respData = utils.makeResponseResult(null, {
       id: maxId.toString(),
       resultPath: resultDbPath,
+      resultImageUrl: getResultImageUrl,
       resultCallback: resultCallbackUrl,
       progressCallback: progressCallbackUrl,
     });
@@ -178,32 +183,31 @@ const getResult = async (req, res) => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const redis = getClient();
+      const redis = getClient({ return_buffers: true });
 
-      const resultImage = await redis.getAsync(getResultKey(id));
+      const resultBuffer = await redis.getAsync(getResultKey(id));
 
       redis.quit();
 
       const tempFileName = getTempFileName(id);
       const tempFilePath = path.join(os.tmpdir(), tempFileName);
 
-      await writeFile(tempFilePath, resultImage);
+      await sharp(resultBuffer).jpeg().toFile(tempFilePath);
 
-      const options = {
-        headers: {
-          'Content-Type': 'image/png',
+      const bucket = admin.storage().bucket();
+
+      const storagePath = `results/${id}/image.jpg`;
+
+      await bucket.upload(tempFilePath, {
+        metadata: {
+          contentType: 'image/jpeg',
         },
-      };
-
-      res.sendFile(tempFilePath, options, (err) => {
-        fs.unlinkSync(tempFilePath);
-
-        if (err) {
-          return reject(err);
-        }
-
-        return resolve();
+        destination: storagePath,
       });
+
+      fs.unlinkSync(tempFilePath);
+
+      resolve(res.send(utils.makeResponseResult(null, { storagePath })));
     } catch (err) {
       console.log(err);
       reject(res.send(utils.makeResponseResult(err)));
