@@ -1,20 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { css } from 'styled-components';
 
+import { icons } from 'modules/core/constants';
 import { constants } from 'modules/router';
 
-import { Nav, PageLayout, Title } from 'modules/core/components';
+import { Button, Nav, PageLayout, Title } from 'modules/core/components';
 
 import { PageSection } from './styled';
 
 
-const Home = () => {
+const Home = ({ history }) => {
   return (
     <>
-      <PageLayout>
+      <PageLayout css={css`justify-content: flex-start;`}>
         <PageSection>
           <Title>Face Tricks</Title>
-          <Title>Check it out</Title>
-          <Title>Built during ReactRiot 2019</Title>
+          <Button
+            iconLeft={icons.FACE}
+            onClick={() => {
+              history.push(constants.Routes.FACES);
+            }}
+          >
+            Try the Generator
+          </Button>
+          <Title css={css`margin-top: 20px;`}>Built during ReactRiot 2019</Title>
         </PageSection>
       </PageLayout>
 
@@ -26,5 +36,8 @@ const Home = () => {
   );
 };
 
+Home.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default Home;
