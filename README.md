@@ -1,6 +1,15 @@
 # Face Tricks
 
-See what your baby would look like!
+[Try it out here!](https://face-tricks.firebaseapp.com)
+
+Upload any number of photos, and see what the offspring of all photo subjects might look like. :)
+
+Client: React/Redux/Redux Saga
+
+API: Firebase functions
+
+AI: StyleGAN on Google Colab
+
 
 ## Available Scripts
 
