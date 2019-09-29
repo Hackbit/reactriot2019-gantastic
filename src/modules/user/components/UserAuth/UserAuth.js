@@ -10,7 +10,6 @@ import { Nav, PageLayout } from 'modules/core/components';
 
 
 const uiConfig = {
-  signInFlow: 'popup',
   signInOptions: [
     Auth.singleton.TwitterAuthProvider.PROVIDER_ID,
     Auth.singleton.GithubAuthProvider.PROVIDER_ID,
@@ -29,7 +28,7 @@ const UserAuth = (props) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <PageLayout>
         <div>
           <span>Please sign in</span>
@@ -45,7 +44,7 @@ const UserAuth = (props) => {
         items={constants.anonRoutes}
         selectedItem={constants.anonRoutes[0].name}
       />
-    </React.Fragment>
+    </>
   );
 };
 

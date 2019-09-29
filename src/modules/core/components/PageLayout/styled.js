@@ -12,6 +12,8 @@ const StyledPageLayout = styled.div`
   justify-content: center;
   overflow: scroll;
   padding-bottom: 128px;
+  padding-top: 88px;
+  ${props => props.css || ''}
 `;
 
 

@@ -6,10 +6,9 @@ import { colors } from 'modules/core/constants';
 
 const StyledNav = styled.div`
   background-color: ${colors.white};
-  height: 108px;
-  padding-bottom: 20px;
+  height: 68px;
   position: absolute;
-  top: calc(100vh - 88px);
+  top: 0;
   width: 100vw;
 `;
 
@@ -19,7 +18,7 @@ const StyledNavList = styled.ul`
   justify-content: space-evenly;
   list-style: none;
   margin: 0;
-  padding: 0 20px 20px;
+  padding: 0 20px;
 `;
 
 const StyledNavItem = styled.li`
@@ -39,7 +38,7 @@ const activeLinkStyles = css`
   height: 6px;
   left: 0;
   position: absolute;
-  top: 0;
+  bottom: 0;
   width: 100%;
 `;
 

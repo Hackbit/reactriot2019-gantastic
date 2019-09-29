@@ -19,7 +19,7 @@ const History = (props) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <PageLayout>
         History page
       </PageLayout>
@@ -28,7 +28,7 @@ const History = (props) => {
         items={constants.authRoutes}
         selectedItem={constants.authRoutes[1].name}
       />
-    </React.Fragment>
+    </>
   );
 };
 

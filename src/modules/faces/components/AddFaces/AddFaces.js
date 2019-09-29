@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'styled-components';
+
+import { icons } from 'modules/core/constants';
 
 import { formHooks } from 'hooks';
 
@@ -7,8 +10,20 @@ import { constants } from 'modules/router';
 
 import { Storage } from 'services';
 
-import { Button, ImageUpload, Nav, PageLayout } from 'modules/core/components';
+import {
+  Button,
+  ImageUpload,
+  Nav,
+  PageLayout,
+  PreviewImageWithSlider,
+} from 'modules/core/components';
 
+import { PageSection } from './styled';
+
+
+const layoutCss = css`
+  justify-content: flex-start;
+`;
 
 const AddFaces = ({ onFacesMerge, onGetHistory }) => {
   const {
@@ -21,32 +36,43 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
   });
 
   return (
-    <React.Fragment>
-      <PageLayout>
+    <>
+      <PageLayout css={layoutCss}>
         <form>
-          <ImageUpload
-            accept="image/*"
-            onChange={handleChange}
-          />
-
-          <br />
-
-          <Button
-            onClick={() => {
-              onFacesMerge(imageUrls);
-            }}
-          >
-            Do Face Tricks
-          </Button>
-
-          {imageUrls.map(url => (
-            <img
-              key={url}
-              src={url}
-              alt={url}
-              style={{ maxHeight: '200px' }}
+          <PageSection>
+            <ImageUpload
+              accept="image/*"
+              icon={icons.UPLOAD}
+              label="Add Images"
+              name="fileList"
+              onChange={handleChange}
             />
-          ))}
+          </PageSection>
+
+          <PageSection>
+            {imageUrls.map(url => (
+              <PreviewImageWithSlider
+                alt={url}
+                key={url}
+                onChange={() => {}}
+                src={url}
+                value={50}
+              />
+            ))}
+          </PageSection>
+
+          {imageUrls.length > 0 && (
+            <PageSection>
+              <Button
+                isAllowed={imageUrls.length > 0}
+                onClick={() => {
+                  onFacesMerge(imageUrls);
+                }}
+              >
+                Do Face Tricks
+              </Button>
+            </PageSection>
+          )}
         </form>
       </PageLayout>
 
@@ -54,7 +80,7 @@ const AddFaces = ({ onFacesMerge, onGetHistory }) => {
         items={constants.authRoutes}
         selectedItem={constants.authRoutes[0].name}
       />
-    </React.Fragment>
+    </>
   );
 };
 

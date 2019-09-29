@@ -1,3 +1,11 @@
 .main {
     text-align: center;
 }
+
+.rainbow-slider_value {
+    display: none !important;
+}
+
+.rainbow-slider_container {
+    width: calc(100% - 100px) !important;
+}
