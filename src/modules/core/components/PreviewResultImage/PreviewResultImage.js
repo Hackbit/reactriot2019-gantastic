@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Slider } from 'react-rainbow-components';
 
 import PreviewImage from '../PreviewImage';
 
